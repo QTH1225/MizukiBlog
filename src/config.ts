@@ -82,7 +82,7 @@ export const siteConfig: SiteConfig = {
 
 		homeText: {
 			enable: true, // 在主页显示自定义文本
-			title: "Tianhao's BlogTest", // 主页横幅主标题
+			title: "Tianhao's Blog", // 主页横幅主标题
 
 			subtitle: [
 				"Laugh hard, Run fast, Be kind.",
