@@ -167,13 +167,13 @@ export const navBarConfig: NavBarConfig = {
 			children: [
 				{
 					name: "GitHub",
-					url: "https://github.com/matsuzaka-yuki/Mizuki",
+					url: "https://github.com/QTH1225",
 					external: true,
 					icon: "fa6-brands:github",
 				},
 				{
 					name: "Bilibili",
-					url: "https://space.bilibili.com/701864046",
+					url: "https://space.bilibili.com/164624905",
 					external: true,
 					icon: "fa6-brands:bilibili",
 				},
@@ -190,7 +190,7 @@ export const navBarConfig: NavBarConfig = {
 			url: "/content/",
 			icon: "material-symbols:person",
 			children: [
-				LinkPreset.Anime,
+				//LinkPreset.Anime,
 				LinkPreset.Diary,
 				{
 					name: "Gallery",
@@ -205,6 +205,7 @@ export const navBarConfig: NavBarConfig = {
 			icon: "material-symbols:info",
 			children: [LinkPreset.About, LinkPreset.Friends],
 		},
+		/*
 		{
 			name: "Others",
 			url: "#",
@@ -227,6 +228,7 @@ export const navBarConfig: NavBarConfig = {
 				},
 			],
 		},
+		*/
 	],
 };
 
@@ -238,7 +240,7 @@ export const profileConfig: ProfileConfig = {
 		{
 			name: "Bilibli",
 			icon: "fa6-brands:bilibili",
-			url: "https://space.bilibili.com/701864046",
+			url: "https://space.bilibili.com/164624905",
 		},
 		//{
 		//	name: "Gitee",
@@ -248,12 +250,13 @@ export const profileConfig: ProfileConfig = {
 		{
 			name: "GitHub",
 			icon: "fa6-brands:github",
-			url: "https://github.com/matsuzaka-yuki",
-		},{
+			url: "https://github.com/QTH1225",
+		},
+		/*{
 			name: "Discord",
 			icon: "fa6-brands:discord",
 			url: "https://discord.gg/MqW6TcQtVM",
-		},
+		},*/
 	],
 	// Umami统计部份，记得在layout插入Umami的head标签
 	umami: {
