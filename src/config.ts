@@ -131,8 +131,8 @@ export const siteConfig: SiteConfig = {
 		zenMaruGothic: {
 			enable: false, // 启用全局圆体
 		},
-		myFrank: {
-        enable: true, // 我的超棒字体，默认先禁用，等下我们再启用它！
+		notoSerifSC: {
+        enable: true, // Noto Serif SC 字体，优雅的中文衬线字体
     },
 	},
 };
