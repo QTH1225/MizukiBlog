@@ -38,13 +38,15 @@ My current research focuses on durability of reinforced concrete in coastal area
 
 ## Competitions
 
-- Jun 2025: Excellent Undergraduate Graduation Project at CUMT<br>
+- Jun 2025: Excellent Undergraduate Graduation Project at CUMT
   Only 7 individual projects  were selected in School of Mechanics & Civil Engineering 
+
 - Aug 2024:  Third Prize in CSEE Cup 2024 National University Students Electrical Math Modeling Competition <br>
 - Jun 2024:  Second Prize in May Day Mathematical Contest in Modeling <br>
 - May 2024:  Second Prize & Third Prize in Jiangsu Province Energy Conservation and Emission Reduction Technology Competition<br>
 - Aug 2023:  First Prize in Jiangsu Province University Student Innovation, Entrepreneurship and Practice Competition in Engineering Management<br>
 - Nov 2023:  Third Prize (Provincial Level) in China Undergraduate Mathematical Contest in Modeling
+
 - Jan 2023:  Silver Medal Winner in University Physics Competition<br>
 - Jan 2023:  Second Prize in Asia and Pacific Mathematical Contest in Modeling<br>
 - Dec 2022:  Second Prize in Jiangsu Province Mechanics Innovation and Creativity Competition<br>
