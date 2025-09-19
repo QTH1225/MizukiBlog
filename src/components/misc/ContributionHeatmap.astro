@@ -196,8 +196,12 @@ const formatNumber = (num: number) => {
         <div class="stat-label">活跃天数</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number">{summary.maxDailyContribution}</div>
-        <div class="stat-label">单日最高</div>
+        <div class="stat-number">{summary.currentStreak}</div>
+        <div class="stat-label">当前连续</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">{summary.longestStreak}</div>
+        <div class="stat-label">最长连续</div>
       </div>
     </div>
   </div>
@@ -330,8 +334,35 @@ const formatNumber = (num: number) => {
   }
 }
 
-/* 平板和手机端隐藏热力图和顶部统计摘要，显示移动端统计信息 */
-@media (max-width: 1024px) {
+/* 平板端调整热力图大小，防止超出边框 */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .heatmap-desktop {
+    padding: 1rem;
+    overflow: hidden;
+  }
+  
+  .month-labels {
+    grid-template-columns: 25px repeat(var(--total-weeks, 53), 9px);
+    margin-left: 25px;
+  }
+  
+  .contribution-cells {
+    grid-template-columns: repeat(var(--total-weeks, 53), 9px);
+  }
+  
+  .contribution-cell {
+    width: 9px;
+    height: 9px;
+  }
+  
+  .legend-item {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* 手机端隐藏热力图和顶部统计摘要，显示移动端统计信息 */
+@media (max-width: 768px) {
   .summary-grid {
     display: none !important;
   }
@@ -347,8 +378,8 @@ const formatNumber = (num: number) => {
   
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
     text-align: center;
   }
   
@@ -360,14 +391,14 @@ const formatNumber = (num: number) => {
   }
   
   .stat-number {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: bold;
     color: var(--green-600);
     color: var(--text-green);
   }
   
   .stat-label {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     color: var(--text-secondary);
     margin-top: 0.25rem;
   }
@@ -377,6 +408,17 @@ const formatNumber = (num: number) => {
 @media (min-width: 1025px) {
   .stats-mobile {
     display: none !important;
+  }
+}
+
+/* 平板端显示热力图 */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .stats-mobile {
+    display: none !important;
+  }
+  
+  .summary-grid {
+    display: grid !important;
   }
 }
 </style>
