@@ -101,7 +101,7 @@ const formatNumber = (num: number) => {
 ---
 
 <div class="contribution-heatmap">
-  <!-- 统计摘要 -->
+  <!-- 统计摘要 - 仅在电脑端显示 -->
   <div class="summary-grid mb-6">
     <div class="summary-item">
       <div class="text-2xl font-bold text-green-600 dark:text-green-400">
@@ -330,8 +330,12 @@ const formatNumber = (num: number) => {
   }
 }
 
-/* 平板和手机端隐藏热力图，显示统计信息 */
+/* 平板和手机端隐藏热力图和顶部统计摘要，显示移动端统计信息 */
 @media (max-width: 1024px) {
+  .summary-grid {
+    display: none !important;
+  }
+  
   .heatmap-desktop {
     display: none !important;
   }
@@ -358,7 +362,8 @@ const formatNumber = (num: number) => {
   .stat-number {
     font-size: 1.5rem;
     font-weight: bold;
-    color: var(--text-primary);
+    color: var(--green-600);
+    color: var(--text-green);
   }
   
   .stat-label {

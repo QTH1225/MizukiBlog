@@ -38,7 +38,7 @@ const summary = getContributionSummary(contributionData);
                 
                 <ContributionHeatmap contributionData={contributionData} summary={summary} />
                 
-                <div class="mt-6 text-sm text-60">
+                <div class="mt-6 text-sm text-60 heatmap-tips">
                     <p>💡 提示：鼠标悬停在格子上可以查看具体日期和字数</p>
                     <p>🎯 颜色说明：浅绿色表示少量更新，深绿色表示大量更新</p>
                 </div>
@@ -46,3 +46,12 @@ const summary = getContributionSummary(contributionData);
         </div>
     </div>
 </MainGridLayout>
+
+<style>
+/* 在平板和手机端隐藏热力图提示信息 */
+@media (max-width: 1024px) {
+  .heatmap-tips {
+    display: none !important;
+  }
+}
+</style>
