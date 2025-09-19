@@ -131,51 +131,53 @@ const formatNumber = (num: number) => {
 
   {/* 热力图 - 仅在电脑端显示 */}
   <div class="heatmap-desktop" style={`--total-weeks: ${totalWeeks}; --total-weeks-mobile: ${Math.ceil(totalWeeks / 2)};`}>
-    <div class="month-labels">
-      {getMonthLabels().map(([month, weekCol]) => (
-        <span class="month-label" style={`grid-column: ${weekCol}`}>
-          {month}
-        </span>
-      ))}
-    </div>
-    
-    <div class="heatmap-grid">
-      {/* 星期标签 - 仅显示周一、三、五 */}
-      <div class="weekday-labels">
-        {weekdays.map((day, index) => day.show ? (
-          <div class="weekday-label" style={`grid-row: ${index + 1}`}>
-            {day.label}
-          </div>
-        ) : null)}
+    <div class="heatmap-main">
+      <div class="month-labels">
+        {getMonthLabels().map(([month, weekCol]) => (
+          <span class="month-label" style={`grid-column: ${weekCol}`}>
+            {month}
+          </span>
+        ))}
       </div>
+      
+      <div class="heatmap-grid">
+        {/* 星期标签 - 仅显示周一、三、五 */}
+        <div class="weekday-labels">
+          {weekdays.map((day, index) => day.show ? (
+            <div class="weekday-label" style={`grid-row: ${index + 1}`}>
+              {day.label}
+            </div>
+          ) : null)}
+        </div>
 
-      {/* 热力格子 */}
-      <div class="contribution-cells">
-        {filteredContributionData.map((day, index) => {
-          const date = new Date(day.date);
-          const dayOfWeek = date.getDay(); // 0=周日, 1=周一, ..., 6=周六
-          
-          // GitHub风格热力图布局：计算从当年第一天开始的周偏移量
-          
-          // 计算该日期在热力图网格中的位置
-          const daysFromStart = Math.floor((date.getTime() - firstDayOfYear.getTime()) / (24 * 60 * 60 * 1000));
-          const weekCol = Math.floor((daysFromStart + firstDayOfYear.getDay()) / 7) + 1;
-          
-          return (
-            <div
-              class={`contribution-cell ${getColorClass(day.level)}`}
-              style={`grid-row: ${dayOfWeek + 1}; grid-column: ${weekCol}`}
-              title={`${day.date}: ${day.count} 字`}
-              data-count={day.count}
-              data-date={day.date}
-            />
-          );
-        })}
+        {/* 热力格子 */}
+        <div class="contribution-cells">
+          {filteredContributionData.map((day, index) => {
+            const date = new Date(day.date);
+            const dayOfWeek = date.getDay(); // 0=周日, 1=周一, ..., 6=周六
+            
+            // GitHub风格热力图布局：计算从当年第一天开始的周偏移量
+            
+            // 计算该日期在热力图网格中的位置
+            const daysFromStart = Math.floor((date.getTime() - firstDayOfYear.getTime()) / (24 * 60 * 60 * 1000));
+            const weekCol = Math.floor((daysFromStart + firstDayOfYear.getDay()) / 7) + 1;
+            
+            return (
+              <div
+                class={`contribution-cell ${getColorClass(day.level)}`}
+                style={`grid-row: ${dayOfWeek + 1}; grid-column: ${weekCol}`}
+                title={`${day.date}: ${day.count} 字`}
+                data-count={day.count}
+                data-date={day.date}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
 
-    {/* 图例 - 放置在左侧，由少到多 */}
-    <div class="legend mt-4" style="justify-content: flex-start;">
+    {/* 图例 - 横向放置在热力图下侧靠左 */}
+    <div class="legend-horizontal">
       <span class="text-sm text-gray-600 dark:text-gray-400 mr-2">Less</span>
       {[0, 1, 2, 3, 4].map(level => (
         <div class={`legend-item ${getColorClass(level)}`} />
@@ -231,6 +233,25 @@ const formatNumber = (num: number) => {
   border-radius: var(--radius-large);
   padding: 1.5rem;
   border: 1px solid var(--line-divider);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heatmap-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.legend-horizontal {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.25rem;
+  margin-top: 1rem;
+  width: 100%;
+  padding-left: 35px; /* 与星期标签对齐 */
 }
 
 .stats-mobile {
@@ -239,53 +260,53 @@ const formatNumber = (num: number) => {
 
 .month-labels {
   display: grid;
-  grid-template-columns: 35px repeat(var(--total-weeks, 53), 11px); /* 增加左侧间距，与星期标签列对齐 */
-  gap: 3px;
+  grid-template-columns: 40px repeat(var(--total-weeks, 53), 13px); /* 增大左侧间距和单元格大小 */
+  gap: 4px;
   margin-bottom: 0.5rem;
-  margin-left: 35px; /* 与星期标签对齐 */
+  margin-left: 40px; /* 与星期标签对齐 */
 }
 
 .month-label {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   color: var(--text-secondary);
   text-align: center;
 }
 
 .heatmap-grid {
   display: grid;
-  grid-template-columns: 35px 1fr; /* 增加左侧间距，与横坐标名称间距匹配 */
+  grid-template-columns: 40px 1fr; /* 增大左侧间距 */
   grid-template-rows: auto 1fr;
-  gap: 3px;
+  gap: 4px;
   margin-left: 0; /* 移除默认边距 */
 }
 
 .weekday-labels {
   display: grid;
-  grid-template-rows: repeat(7, 11px);
-  gap: 3px;
+  grid-template-rows: repeat(7, 13px);
+  gap: 4px;
 }
 
 .weekday-label {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
   text-align: right;
-  padding-right: 0.5rem; /* 增加右边距，防止文字被热力图遮挡 */
+  padding-right: 0.6rem; /* 增加右边距，防止文字被热力图遮挡 */
   z-index: 1; /* 确保星期标签显示在热力图上方 */
 }
 
 .contribution-cells {
   display: grid;
-  grid-template-columns: repeat(var(--total-weeks, 53), 11px);
-  grid-template-rows: repeat(7, 11px);
-  gap: 3px;
+  grid-template-columns: repeat(var(--total-weeks, 53), 13px);
+  grid-template-rows: repeat(7, 13px);
+  gap: 4px;
   margin-left: 0; /* 确保与星期标签对齐 */
   z-index: 0; /* 确保热力图在星期标签下方 */
 }
 
 .contribution-cell {
-  width: 11px;
-  height: 11px;
-  border-radius: 2px;
+  width: 13px;
+  height: 13px;
+  border-radius: 3px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -295,17 +316,10 @@ const formatNumber = (num: number) => {
   box-shadow: 0 0 0 2px var(--primary);
 }
 
-.legend {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.25rem;
-}
-
 .legend-item {
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
 }
 
 /* 响应式设计 */
@@ -337,27 +351,68 @@ const formatNumber = (num: number) => {
 /* 平板端调整热力图大小，防止超出边框 */
 @media (max-width: 1024px) and (min-width: 769px) {
   .heatmap-desktop {
-    padding: 1rem;
+    padding: 0.75rem;
     overflow: hidden;
+    justify-content: flex-start;
+  }
+  
+  .heatmap-container {
+    gap: 0.5rem;
   }
   
   .month-labels {
-    grid-template-columns: 25px repeat(var(--total-weeks, 53), 9px);
-    margin-left: 25px;
+    grid-template-columns: 20px repeat(var(--total-weeks, 53), 7px);
+    margin-left: 20px;
+    gap: 2px;
+  }
+  
+  .month-label {
+    font-size: 0.65rem;
+  }
+  
+  .heatmap-grid {
+    grid-template-columns: 20px 1fr;
+    gap: 2px;
+  }
+  
+  .weekday-labels {
+    grid-template-rows: repeat(7, 7px);
+    gap: 2px;
+  }
+  
+  .weekday-label {
+    font-size: 0.6rem;
+    padding-right: 0.25rem;
   }
   
   .contribution-cells {
-    grid-template-columns: repeat(var(--total-weeks, 53), 9px);
+    grid-template-columns: repeat(var(--total-weeks, 53), 7px);
+    grid-template-rows: repeat(7, 7px);
+    gap: 2px;
   }
   
   .contribution-cell {
-    width: 9px;
-    height: 9px;
+    width: 7px;
+    height: 7px;
+    border-radius: 1px;
+  }
+  
+  .legend-left {
+    margin-top: 1.5rem;
+  }
+  
+  .legend-vertical {
+    gap: 0.15rem;
   }
   
   .legend-item {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
+    border-radius: 1px;
+  }
+  
+  .legend-vertical span {
+    font-size: 0.6rem;
   }
 }
 
