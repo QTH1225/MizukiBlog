@@ -1,9 +1,11 @@
 ---
 title: Markdown Mermaid
-published: 2023-10-01
+published: 2025-10-01
 pinned: false
 description: A simple example of a Markdown blog post with Mermaid.
-tags: [Markdown, Blogging, Mermaid]
+tags:
+  - Blogging
+  - Mermaid
 category: Examples
 draft: false
 ---
