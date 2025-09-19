@@ -2,6 +2,8 @@
 
 import { getEntry, render } from "astro:content";
 import Markdown from "@components/misc/Markdown.astro";
+import ContributionHeatmap from "@components/misc/ContributionHeatmap.astro";
+import { getWordCountStats, generateContributionData, getContributionSummary } from "@utils/word-count-utils";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
@@ -13,6 +15,11 @@ if (!aboutPost) {
 }
 
 const { Content } = await render(aboutPost);
+
+// 获取字数统计数据和热力图数据
+const wordCountStats = await getWordCountStats();
+const contributionData = generateContributionData(wordCountStats.dailyStats);
+const summary = getContributionSummary(contributionData);
 ---
 <MainGridLayout title={i18n(I18nKey.about)} description={i18n(I18nKey.about)}>
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
@@ -20,6 +27,22 @@ const { Content } = await render(aboutPost);
             <Markdown class="mt-2">
                 <Content />
             </Markdown>
+            
+            <!-- 博客更新热力图 -->
+            <div class="mt-8">
+                <h2 class="text-2xl font-bold text-90 mb-6">📊 博客更新情况</h2>
+                <p class="text-75 mb-6">
+                    以下是过去一年中博客文章的更新热力图，展示了每天的写作字数。
+                    总共发布了 {wordCountStats.totalPosts} 篇文章，累计 {wordCountStats.totalWords.toLocaleString()} 字。
+                </p>
+                
+                <ContributionHeatmap contributionData={contributionData} summary={summary} />
+                
+                <div class="mt-6 text-sm text-60">
+                    <p>💡 提示：鼠标悬停在格子上可以查看具体日期和字数</p>
+                    <p>🎯 颜色说明：浅绿色表示少量更新，深绿色表示大量更新</p>
+                </div>
+            </div>
         </div>
     </div>
 </MainGridLayout>

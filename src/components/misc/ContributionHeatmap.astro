@@ -1,0 +1,377 @@
+---
+import { generateContributionData, getContributionSummary } from "@utils/word-count-utils";
+
+interface Props {
+  contributionData: Array<{
+    date: string;
+    count: number;
+    level: number;
+  }>;
+  summary: {
+    totalContributions: number;
+    activeDays: number;
+    maxDailyContribution: number;
+    currentStreak: number;
+    longestStreak: number;
+  };
+}
+
+const { contributionData, summary } = Astro.props;
+
+// 生成全年数据，包括未来日期（未来日期按没有贡献显示）
+const currentYear = new Date().getFullYear();
+const firstDayOfYear = new Date(currentYear, 0, 1);
+const lastDayOfYear = new Date(currentYear, 11, 31);
+
+// 创建全年日期数组
+const fullYearData = [];
+for (let d = new Date(firstDayOfYear); d <= lastDayOfYear; d.setDate(d.getDate() + 1)) {
+  const dateStr = d.toISOString().split('T')[0];
+  const existingData = contributionData.find(item => item.date === dateStr);
+  
+  if (existingData) {
+    fullYearData.push(existingData);
+  } else {
+    // 未来日期或没有贡献的日期
+    fullYearData.push({
+      date: dateStr,
+      count: 0,
+      level: 0
+    });
+  }
+}
+
+const filteredContributionData = fullYearData;
+
+// 计算全年总周数（从当年第一天到最后一天）
+const totalDays = Math.floor((lastDayOfYear.getTime() - firstDayOfYear.getTime()) / (24 * 60 * 60 * 1000)) + 1; // 全年总天数
+const totalWeeks = Math.ceil((totalDays + firstDayOfYear.getDay()) / 7); // 考虑第一周可能不完整
+
+// 获取全年的月份标签及其位置（从当年第一天到最后一天）
+const getMonthLabels = () => {
+  
+  // 记录每个月份第一次出现的位置
+  const monthPositions = new Map();
+  
+  for (let d = new Date(firstDayOfYear); d <= lastDayOfYear; d.setDate(d.getDate() + 1)) {
+    const monthKey = d.toLocaleString("en-US", { month: "short" }); // 英文缩写
+    const daysFromStart = Math.floor((d.getTime() - firstDayOfYear.getTime()) / (24 * 60 * 60 * 1000));
+    const weekCol = Math.floor((daysFromStart + firstDayOfYear.getDay()) / 7) + 1;
+    
+    // 记录每个月份第一次出现的位置
+    if (!monthPositions.has(monthKey)) {
+      monthPositions.set(monthKey, weekCol);
+    }
+  }
+  
+  // 转换为数组并按周数排序
+  return Array.from(monthPositions.entries()).sort((a, b) => a[1] - b[1]);
+};
+
+// 获取星期标签（GitHub风格，从上到下：周日到周六）- 仅显示周一、三、五的英文缩写
+const weekdays = [
+  { show: false, label: "Sun" }, // 周日
+  { show: true, label: "Mon" },  // 周一
+  { show: false, label: "Tue" }, // 周二
+  { show: true, label: "Wed" },  // 周三
+  { show: false, label: "Thu" }, // 周四
+  { show: true, label: "Fri" },  // 周五
+  { show: false, label: "Sat" }   // 周六
+];
+
+// 根据贡献等级获取颜色类名
+const getColorClass = (level: number) => {
+  switch (level) {
+    case 0: return "bg-gray-100 dark:bg-gray-800";
+    case 1: return "bg-green-100 dark:bg-green-900";
+    case 2: return "bg-green-300 dark:bg-green-700";
+    case 3: return "bg-green-500 dark:bg-green-600";
+    case 4: return "bg-green-700 dark:bg-green-500";
+    default: return "bg-gray-100 dark:bg-gray-800";
+  }
+};
+
+// 格式化数字
+const formatNumber = (num: number) => {
+  if (num >= 1000) {
+    return (num / 1000).toFixed(1) + "k";
+  }
+  return num.toString();
+};
+---
+
+<div class="contribution-heatmap">
+  <!-- 统计摘要 -->
+  <div class="summary-grid mb-6">
+    <div class="summary-item">
+      <div class="text-2xl font-bold text-green-600 dark:text-green-400">
+        {formatNumber(summary.totalContributions)}
+      </div>
+      <div class="text-sm text-gray-600 dark:text-gray-400">总字数</div>
+    </div>
+    <div class="summary-item">
+      <div class="text-2xl font-bold text-green-600 dark:text-green-400">
+        {summary.activeDays}
+      </div>
+      <div class="text-sm text-gray-600 dark:text-gray-400">活跃天数</div>
+    </div>
+    <div class="summary-item">
+      <div class="text-2xl font-bold text-green-600 dark:text-green-400">
+        {summary.currentStreak}
+      </div>
+      <div class="text-sm text-gray-600 dark:text-gray-400">当前连续</div>
+    </div>
+    <div class="summary-item">
+      <div class="text-2xl font-bold text-green-600 dark:text-green-400">
+        {summary.longestStreak}
+      </div>
+      <div class="text-sm text-gray-600 dark:text-gray-400">最长连续</div>
+    </div>
+  </div>
+
+  {/* 热力图 - 仅在电脑端显示 */}
+  <div class="heatmap-desktop" style={`--total-weeks: ${totalWeeks}; --total-weeks-mobile: ${Math.ceil(totalWeeks / 2)};`}>
+    <div class="month-labels">
+      {getMonthLabels().map(([month, weekCol]) => (
+        <span class="month-label" style={`grid-column: ${weekCol}`}>
+          {month}
+        </span>
+      ))}
+    </div>
+    
+    <div class="heatmap-grid">
+      {/* 星期标签 - 仅显示周一、三、五 */}
+      <div class="weekday-labels">
+        {weekdays.map((day, index) => day.show ? (
+          <div class="weekday-label" style={`grid-row: ${index + 1}`}>
+            {day.label}
+          </div>
+        ) : null)}
+      </div>
+
+      {/* 热力格子 */}
+      <div class="contribution-cells">
+        {filteredContributionData.map((day, index) => {
+          const date = new Date(day.date);
+          const dayOfWeek = date.getDay(); // 0=周日, 1=周一, ..., 6=周六
+          
+          // GitHub风格热力图布局：计算从当年第一天开始的周偏移量
+          
+          // 计算该日期在热力图网格中的位置
+          const daysFromStart = Math.floor((date.getTime() - firstDayOfYear.getTime()) / (24 * 60 * 60 * 1000));
+          const weekCol = Math.floor((daysFromStart + firstDayOfYear.getDay()) / 7) + 1;
+          
+          return (
+            <div
+              class={`contribution-cell ${getColorClass(day.level)}`}
+              style={`grid-row: ${dayOfWeek + 1}; grid-column: ${weekCol}`}
+              title={`${day.date}: ${day.count} 字`}
+              data-count={day.count}
+              data-date={day.date}
+            />
+          );
+        })}
+      </div>
+    </div>
+
+    {/* 图例 - 放置在左侧，由少到多 */}
+    <div class="legend mt-4" style="justify-content: flex-start;">
+      <span class="text-sm text-gray-600 dark:text-gray-400 mr-2">Less</span>
+      {[0, 1, 2, 3, 4].map(level => (
+        <div class={`legend-item ${getColorClass(level)}`} />
+      ))}
+      <span class="text-sm text-gray-600 dark:text-gray-400 ml-2">More</span>
+    </div>
+  </div>
+
+  {/* 移动端统计信息 - 仅在平板和手机端显示 */}
+  <div class="stats-mobile">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number">{formatNumber(summary.totalContributions)}</div>
+        <div class="stat-label">总字数</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">{summary.activeDays}</div>
+        <div class="stat-label">活跃天数</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">{summary.maxDailyContribution}</div>
+        <div class="stat-label">单日最高</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.contribution-heatmap {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.summary-item {
+  text-align: center;
+  padding: 0.75rem;
+  background: var(--card-bg);
+  border-radius: var(--radius-large);
+  border: 1px solid var(--line-divider);
+}
+
+.heatmap-desktop {
+  background: var(--card-bg);
+  border-radius: var(--radius-large);
+  padding: 1.5rem;
+  border: 1px solid var(--line-divider);
+}
+
+.stats-mobile {
+  display: none;
+}
+
+.month-labels {
+  display: grid;
+  grid-template-columns: 35px repeat(var(--total-weeks, 53), 11px); /* 增加左侧间距，与星期标签列对齐 */
+  gap: 3px;
+  margin-bottom: 0.5rem;
+  margin-left: 35px; /* 与星期标签对齐 */
+}
+
+.month-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: 35px 1fr; /* 增加左侧间距，与横坐标名称间距匹配 */
+  grid-template-rows: auto 1fr;
+  gap: 3px;
+  margin-left: 0; /* 移除默认边距 */
+}
+
+.weekday-labels {
+  display: grid;
+  grid-template-rows: repeat(7, 11px);
+  gap: 3px;
+}
+
+.weekday-label {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  text-align: right;
+  padding-right: 0.5rem; /* 增加右边距，防止文字被热力图遮挡 */
+  z-index: 1; /* 确保星期标签显示在热力图上方 */
+}
+
+.contribution-cells {
+  display: grid;
+  grid-template-columns: repeat(var(--total-weeks, 53), 11px);
+  grid-template-rows: repeat(7, 11px);
+  gap: 3px;
+  margin-left: 0; /* 确保与星期标签对齐 */
+  z-index: 0; /* 确保热力图在星期标签下方 */
+}
+
+.contribution-cell {
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.contribution-cell:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 2px var(--primary);
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.legend-item {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .month-labels {
+    grid-template-columns: 15px repeat(var(--total-weeks-mobile, 26), 8px);
+  }
+  
+  .contribution-cells {
+    grid-template-columns: repeat(var(--total-weeks-mobile, 26), 8px);
+    grid-template-rows: repeat(14, 8px);
+  }
+  
+  .contribution-cell {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .legend-item {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* 平板和手机端隐藏热力图，显示统计信息 */
+@media (max-width: 1024px) {
+  .heatmap-desktop {
+    display: none !important;
+  }
+  
+  .stats-mobile {
+    display: block;
+    margin: 1rem 0;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .stat-item {
+    padding: 0.75rem;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stat-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-primary);
+  }
+  
+  .stat-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+  }
+}
+
+/* 电脑端隐藏统计信息，显示热力图 */
+@media (min-width: 1025px) {
+  .stats-mobile {
+    display: none !important;
+  }
+}
+</style>
