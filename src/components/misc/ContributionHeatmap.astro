@@ -414,6 +414,15 @@ const formatNumber = (num: number) => {
   .legend-vertical span {
     font-size: 0.6rem;
   }
+  
+  /* 平板端隐藏移动端统计信息，显示顶部统计摘要 */
+  .stats-mobile {
+    display: none !important;
+  }
+  
+  .summary-grid {
+    display: grid !important;
+  }
 }
 
 /* 手机端隐藏热力图和顶部统计摘要，显示移动端统计信息 */
@@ -463,17 +472,6 @@ const formatNumber = (num: number) => {
 @media (min-width: 1025px) {
   .stats-mobile {
     display: none !important;
-  }
-}
-
-/* 平板端显示热力图 */
-@media (max-width: 1024px) and (min-width: 769px) {
-  .stats-mobile {
-    display: none !important;
-  }
-  
-  .summary-grid {
-    display: grid !important;
   }
 }
 </style>
