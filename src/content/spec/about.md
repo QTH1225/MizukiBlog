@@ -18,7 +18,8 @@
 缺点：
 - 页面功能较少，仅适合于简单展示
 ### 基于astro的mizuki模板
-基于[astro](https://docs.astro.build/en/getting-started/)的[Mizuki](https://docs.mizuki.mysqil.com/)模板可以参考该github仓库
+博主最开始是想使用基于[astro](https://docs.astro.build/en/getting-started/)的[fuwari](https://github.com/saicaca/fuwari/)主题，在网上查询后找到了功能更加全面丰富的[Mizuki](https://docs.mizuki.mysqil.com/)主题。两个主题使用人数都较多，功能也较为全面。这两个主题可以参考以下仓库。
+::github{repo="saicaca/fuwari"}
 ::github{repo="matsuzaka-yuki/Mizuki"}
 优点：
 - 模板页面丰富，支持多语言、播放器、live2d等功能

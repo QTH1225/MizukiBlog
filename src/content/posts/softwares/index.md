@@ -1,5 +1,5 @@
 ---
-title: Some softwares
+title: 装机软件
 author: Qin Tianhao
 category: Technology
 tags:

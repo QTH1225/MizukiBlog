@@ -1,10 +1,10 @@
 {
-	"title": "Some lovely pictures",
+	"title": "My graduation trip by the seaside",
 	"hidden": false,
-	"description": "The world is vast, and you have to go explore it.",
+	"description": "After graduating from university, I went to the seaside of Qinhuangdao, where I saw the vast sea and smelled the salty sea breeze. I hope one day I can go and have a look across the sea.",
 	"date": "2025-08-01",
-	"location": "Bilibili",
-	"tags": ["Kawai", "Cute", "Moe"],
+	"location": "Qinhuangdao",
+	"tags": ["Journey", "Sea"],
 	"layout": "masonry",
 	"columns": 3
 }
