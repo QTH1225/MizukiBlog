@@ -111,19 +111,19 @@ const formatNumber = (num: number) => {
     </div>
     <div class="summary-item">
       <div class="text-2xl font-bold text-green-600 dark:text-green-400">
-        {summary.activeDays}
+        {formatNumber(summary.activeDays)}
       </div>
       <div class="text-sm text-gray-600 dark:text-gray-400">活跃天数</div>
     </div>
     <div class="summary-item">
       <div class="text-2xl font-bold text-green-600 dark:text-green-400">
-        {summary.currentStreak}
+        {formatNumber(summary.currentStreak)}
       </div>
       <div class="text-sm text-gray-600 dark:text-gray-400">当前连续</div>
     </div>
     <div class="summary-item">
       <div class="text-2xl font-bold text-green-600 dark:text-green-400">
-        {summary.longestStreak}
+        {formatNumber(summary.longestStreak)}
       </div>
       <div class="text-sm text-gray-600 dark:text-gray-400">最长连续</div>
     </div>
@@ -194,15 +194,15 @@ const formatNumber = (num: number) => {
         <div class="stat-label">总字数</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number">{summary.activeDays}</div>
+        <div class="stat-number">{formatNumber(summary.activeDays)}</div>
         <div class="stat-label">活跃天数</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number">{summary.currentStreak}</div>
+        <div class="stat-number">{formatNumber(summary.currentStreak)}</div>
         <div class="stat-label">当前连续</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number">{summary.longestStreak}</div>
+        <div class="stat-number">{formatNumber(summary.longestStreak)}</div>
         <div class="stat-label">最长连续</div>
       </div>
     </div>
@@ -359,9 +359,9 @@ const formatNumber = (num: number) => {
 
   
   .month-labels {
-    grid-template-columns: 8px repeat(var(--total-weeks, 53), 2px);
-    margin-left: 8px;
-    gap: 0.25px;
+    grid-template-columns: 20px repeat(var(--total-weeks, 53), 6px);
+    margin-left: 20px;
+    gap: 1px;
   }
   
   .month-label {
@@ -369,13 +369,13 @@ const formatNumber = (num: number) => {
   }
   
   .heatmap-grid {
-    grid-template-columns: 8px 1fr;
-    gap: 0.25px;
+    grid-template-columns: 20px 1fr;
+    gap: 1px;
   }
   
   .weekday-labels {
-    grid-template-rows: repeat(7, 2px);
-    gap: 0.25px;
+    grid-template-rows: repeat(7, 6px);
+    gap: 1px;
   }
   
   .weekday-label {
@@ -384,15 +384,15 @@ const formatNumber = (num: number) => {
   }
   
   .contribution-cells {
-    grid-template-columns: repeat(var(--total-weeks, 53), 2px);
-    grid-template-rows: repeat(7, 2px);
-    gap: 0.25px;
+    grid-template-columns: repeat(var(--total-weeks, 53), 6px);
+    grid-template-rows: repeat(7, 6px);
+    gap: 1px;
   }
   
   .contribution-cell {
-    width: 2px;
-    height: 2px;
-    border-radius: 0.5px;
+    width: 6px;
+    height: 6px;
+    border-radius: 1px;
   }
   
   .legend-item {
