@@ -5,7 +5,7 @@ import getReadingTime from "reading-time";
 // 获取所有文章的字数统计数据
 export async function getWordCountStats() {
   const allBlogPosts = await getCollection("posts", ({ data }) => {
-    return import.meta.env.PROD ? data.draft !== true : true;
+    return data.draft !== true;
   });
 
   // 计算每篇文章的字数

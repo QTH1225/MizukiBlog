@@ -20,6 +20,9 @@ const { Content } = await render(aboutPost);
 const wordCountStats = await getWordCountStats();
 const contributionData = generateContributionData(wordCountStats.dailyStats);
 const summary = getContributionSummary(contributionData);
+
+// 修正热力图统计摘要中的总字数，使用所有文章的总字数而不是过去一年的
+summary.totalContributions = wordCountStats.totalWords;
 ---
 <MainGridLayout title={i18n(I18nKey.about)} description={i18n(I18nKey.about)}>
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">

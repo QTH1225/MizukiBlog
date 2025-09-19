@@ -24,8 +24,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 		return [];
 	}
 
-	const allPosts = await getCollection("posts");
-	const publishedPosts = allPosts.filter((post) => !post.data.draft);
+	const allPosts = await getCollection("posts", ({ data }) => {
+		return import.meta.env.PROD ? data.draft !== true : true;
+	});
+	const publishedPosts = allPosts;
 
 	return publishedPosts.map((post) => ({
 		params: { slug: post.slug },
