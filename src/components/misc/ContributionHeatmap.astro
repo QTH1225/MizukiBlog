@@ -353,18 +353,20 @@ const formatNumber = (num: number) => {
 /* 平板端调整热力图大小，防止超出边框 */
 @media (max-width: 1024px) and (min-width: 769px) {
   .heatmap-desktop {
-    padding: 0.5rem;
+    padding: 1rem 0.5rem; /* 增加上下内边距，减少左右内边距 */
     overflow-x: auto;
     justify-content: flex-start;
-    max-width: 100%;
+    max-width: 100vw; /* 使用视口宽度确保完整显示 */
     margin: 0 auto;
+    width: calc(100% + 2rem); /* 增加额外宽度用于滑动冗余 */
   }
   
   .month-labels {
     grid-template-columns: 15px repeat(var(--total-weeks, 53), 5px);
     margin-left: 15px;
     gap: 1px;
-    max-width: calc(15px + 53 * 5px + 52 * 1px); /* 限制最大宽度 */
+    max-width: calc(15px + 53 * 5px + 52 * 1px + 2rem); /* 增加额外宽度用于滑动冗余 */
+    min-width: fit-content; /* 确保内容完整显示 */
   }
   
   .month-label {
@@ -390,7 +392,8 @@ const formatNumber = (num: number) => {
     grid-template-columns: repeat(var(--total-weeks, 53), 5px);
     grid-template-rows: repeat(7, 5px);
     gap: 1px;
-    max-width: calc(53 * 5px + 52 * 1px); /* 限制最大宽度 */
+    max-width: calc(53 * 5px + 52 * 1px + 2rem); /* 增加额外宽度用于滑动冗余 */
+    min-width: fit-content; /* 确保内容完整显示 */
   }
   
   .contribution-cell {
