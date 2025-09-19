@@ -253,11 +253,11 @@ export const profileConfig: ProfileConfig = {
 			icon: "fa6-brands:bilibili",
 			url: "https://space.bilibili.com/164624905",
 		},
-		//{
-		//	name: "Gitee",
-		//	icon: "mdi:git",
-		//	url: "https://gitee.com/matsuzakayuki",
-		//},
+		{
+			name: "WeChat",
+			icon: "fa6-brands:weixin",
+			url: "/assets/images/wechat-qrcode.webp",
+		},
 		{
 			name: "GitHub",
 			icon: "fa6-brands:github",

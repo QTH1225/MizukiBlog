@@ -7,6 +7,23 @@ import { url } from "../utils/url-utils";
 
 const currentYear = new Date().getFullYear();
 
+// 计算网站运行时间（天、小时、分钟、秒）
+const calculateSiteRunningTime = () => {
+  // 假设网站从2025年9月12日开始运行，您可以根据实际情况修改这个日期
+  const siteStartDate = new Date("2025-09-12");
+  const currentDate = new Date();
+  const timeDiff = currentDate.getTime() - siteStartDate.getTime();
+  
+  const days = Math.floor(timeDiff / (1000 * 3600 * 24));
+  const hours = Math.floor((timeDiff % (1000 * 3600 * 24)) / (1000 * 3600));
+  const minutes = Math.floor((timeDiff % (1000 * 3600)) / (1000 * 60));
+  const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+  
+  return { days, hours, minutes, seconds };
+};
+
+const siteRunningTime = calculateSiteRunningTime();
+
 // 读取FooterConfig.html文件内容
 let customFooterHtml = "";
 if (footerConfig.enable) {
@@ -34,6 +51,7 @@ if (footerConfig.enable) {
             <div class="mb-2" set:html={customFooterHtml}></div>
         )}
         &copy; <span id="copyright-year">{currentYear}</span> {profileConfig.name}. All Rights Reserved. /
+        <span id="site-running-time" class="text-[var(--primary)] font-medium">本博客已运行 {siteRunningTime.days}天{siteRunningTime.hours}时{siteRunningTime.minutes}分{siteRunningTime.seconds}秒</span> /
         <a class="transition link text-[var(--primary)] font-medium" target="_blank" href={url('rss/')}>RSS</a> /
         <a class="transition link text-[var(--primary)] font-medium" target="_blank" href={url('sitemap-index.xml')}>Sitemap</a><br>
         Powered by
@@ -43,3 +61,46 @@ if (footerConfig.enable) {
 
     </div>
 </div>
+
+<script>
+// 实时更新网站运行时间（使用精确的时间计算）
+function initSiteRunningTime() {
+  const siteStartDate = new Date("2025-09-12");
+  const timeElement = document.getElementById('site-running-time');
+  
+  if (!timeElement) return;
+  
+  // 初始计算时间差
+  const initialTimeDiff = Date.now() - siteStartDate.getTime();
+  
+  // 使用requestAnimationFrame实现平滑更新
+  let lastUpdateTime = Date.now();
+  
+  function updateTime() {
+    const currentTime = Date.now();
+    const elapsedTime = initialTimeDiff + (currentTime - lastUpdateTime);
+    
+    const days = Math.floor(elapsedTime / (1000 * 3600 * 24));
+    const hours = Math.floor((elapsedTime % (1000 * 3600 * 24)) / (1000 * 3600));
+    const minutes = Math.floor((elapsedTime % (1000 * 3600)) / (1000 * 60));
+    const seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
+    
+    timeElement.textContent = `本博客已运行 ${days}天${hours}时${minutes}分${seconds}秒`;
+    
+    // 每秒更新一次显示，但使用更频繁的检查来避免跳秒
+    requestAnimationFrame(updateTime);
+  }
+  
+  // 立即开始更新
+  requestAnimationFrame(updateTime);
+}
+
+// 页面加载后初始化
+if (typeof document !== 'undefined') {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSiteRunningTime);
+  } else {
+    initSiteRunningTime();
+  }
+}
+</script>
