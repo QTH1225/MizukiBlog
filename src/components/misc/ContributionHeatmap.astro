@@ -359,9 +359,9 @@ const formatNumber = (num: number) => {
 
   
   .month-labels {
-    grid-template-columns: 15px repeat(var(--total-weeks, 53), 7px);
-    margin-left: 15px;
-    gap: 1px;
+    grid-template-columns: 10px repeat(var(--total-weeks, 53), 5px);
+    margin-left: 10px;
+    gap: 0.5px;
   }
   
   .month-label {
@@ -369,13 +369,13 @@ const formatNumber = (num: number) => {
   }
   
   .heatmap-grid {
-    grid-template-columns: 15px 1fr;
-    gap: 1px;
+    grid-template-columns: 10px 1fr;
+    gap: 0.5px;
   }
   
   .weekday-labels {
-    grid-template-rows: repeat(7, 7px);
-    gap: 2px;
+    grid-template-rows: repeat(7, 5px);
+    gap: 0.5px;
   }
   
   .weekday-label {
@@ -384,14 +384,14 @@ const formatNumber = (num: number) => {
   }
   
   .contribution-cells {
-    grid-template-columns: repeat(var(--total-weeks, 53), 7px);
-    grid-template-rows: repeat(7, 7px);
-    gap: 2px;
+    grid-template-columns: repeat(var(--total-weeks, 53), 5px);
+    grid-template-rows: repeat(7, 5px);
+    gap: 0.5px;
   }
   
   .contribution-cell {
-    width: 7px;
-    height: 7px;
+    width: 5px;
+    height: 5px;
     border-radius: 1px;
   }
   
