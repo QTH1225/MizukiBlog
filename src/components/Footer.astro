@@ -73,8 +73,10 @@ function initSiteRunningTime() {
   // 初始计算时间差
   const initialTimeDiff = Date.now() - siteStartDate.getTime();
   
-  // 使用requestAnimationFrame实现平滑更新
+  // 使用requestAnimationFrame实现平滑更新，同时添加setTimeout作为备用
   let lastUpdateTime = Date.now();
+  let animationFrameId = null;
+  let timeoutId = null;
   
   function updateTime() {
     const currentTime = Date.now();
@@ -87,12 +89,26 @@ function initSiteRunningTime() {
     
     timeElement.textContent = `本博客已运行 ${days}天${hours}时${minutes}分${seconds}秒`;
     
-    // 每秒更新一次显示，但使用更频繁的检查来避免跳秒
-    requestAnimationFrame(updateTime);
+    // 更新最后更新时间
+    lastUpdateTime = currentTime;
+    
+    // 清除之前的定时器
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      timeoutId = null;
+    }
+    
+    // 使用requestAnimationFrame优先，setTimeout作为备用
+    if (typeof requestAnimationFrame !== 'undefined') {
+      animationFrameId = requestAnimationFrame(updateTime);
+    } else {
+      // 移动端兼容性：如果requestAnimationFrame不可用，使用setTimeout
+      timeoutId = setTimeout(updateTime, 1000);
+    }
   }
   
   // 立即开始更新
-  requestAnimationFrame(updateTime);
+  updateTime();
 }
 
 // 页面加载后初始化
