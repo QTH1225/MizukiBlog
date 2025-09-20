@@ -43,15 +43,15 @@ if (footerConfig.enable) {
 ---
 
 <!--<div class="border-t border-[var(&#45;&#45;primary)] mx-16 border-dashed py-8 max-w-[var(&#45;&#45;page-width)] flex flex-col items-center justify-center px-6">-->
-<div class="transition border-t border-black/10 dark:border-white/15 my-10 border-dashed mx-32"></div>
+<div class="transition border-t border-black/10 dark:border-white/15 my-10 border-dashed mx-8 md:mx-16 lg:mx-32"></div>
 <!--<div class="transition bg-[oklch(92%_0.01_var(&#45;&#45;hue))] dark:bg-black rounded-2xl py-8 mt-4 mb-8 flex flex-col items-center justify-center px-6">-->
-<div class="transition border-dashed border-[oklch(85%_0.01_var(--hue))] dark:border-white/15 rounded-2xl mb-12 flex flex-col items-center justify-center px-6">
+<div class="transition border-dashed border-[oklch(85%_0.01_var(--hue))] dark:border-white/15 rounded-2xl mb-12 flex flex-col items-center justify-center px-4 md:px-6">
     <div class="transition text-50 text-sm text-center">
         {customFooterHtml && (
             <div class="mb-2" set:html={customFooterHtml}></div>
         )}
         &copy; <span id="copyright-year">{currentYear}</span> {profileConfig.name}. All Rights Reserved. /
-        <span id="site-running-time" class="text-[var(--primary)] font-medium">本博客已运行 {siteRunningTime.days}天{siteRunningTime.hours}时{siteRunningTime.minutes}分{siteRunningTime.seconds}秒</span> /
+        <span id="site-running-time" class="text-[var(--primary)] font-medium text-xs md:text-sm">本博客已运行 {siteRunningTime.days}天{siteRunningTime.hours}时{siteRunningTime.minutes}分{siteRunningTime.seconds}秒</span> /
         <a class="transition link text-[var(--primary)] font-medium" target="_blank" href={url('rss/')}>RSS</a> /
         <a class="transition link text-[var(--primary)] font-medium" target="_blank" href={url('sitemap-index.xml')}>Sitemap</a><br>
         Powered by
@@ -100,7 +100,8 @@ if (typeof document !== 'undefined') {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initSiteRunningTime);
   } else {
-    initSiteRunningTime();
+    // 使用setTimeout确保DOM完全渲染完成，特别是在移动端
+    setTimeout(initSiteRunningTime, 0);
   }
 }
 </script>
