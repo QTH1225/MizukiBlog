@@ -5,7 +5,7 @@ published: 2025-09-27
 pinned: false
 draft: false
 description: 博主推荐的一些在电脑端好用的软件
-category: Technology
+category: Guides
 tags:
   - software
 ---

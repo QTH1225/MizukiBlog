@@ -6,7 +6,7 @@ description: Read more about Markdown features in Mizuki
 image: ""
 tags:
   - Markdown
-category: Examples
+category: Technology
 draft: false
 ---
 
