@@ -63,61 +63,42 @@ if (footerConfig.enable) {
 </div>
 
 <script>
-// 实时更新网站运行时间（使用精确的时间计算）
-function initSiteRunningTime() {
+// 实时更新网站运行时间
+(function() {
+  // 网站开始运行的日期
   const siteStartDate = new Date("2025-09-12");
-  const timeElement = document.getElementById('site-running-time');
   
-  if (!timeElement) return;
-  
-  // 初始计算时间差
-  const initialTimeDiff = Date.now() - siteStartDate.getTime();
-  
-  // 使用requestAnimationFrame实现平滑更新，同时添加setTimeout作为备用
-  let lastUpdateTime = Date.now();
-  let animationFrameId = null;
-  let timeoutId = null;
-  
-  function updateTime() {
-    const currentTime = Date.now();
-    const elapsedTime = initialTimeDiff + (currentTime - lastUpdateTime);
+  function updateRunningTime() {
+    const timeElement = document.getElementById('site-running-time');
+    if (!timeElement) return;
     
-    const days = Math.floor(elapsedTime / (1000 * 3600 * 24));
-    const hours = Math.floor((elapsedTime % (1000 * 3600 * 24)) / (1000 * 3600));
-    const minutes = Math.floor((elapsedTime % (1000 * 3600)) / (1000 * 60));
-    const seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
+    // 计算当前时间与开始时间的差值
+    const currentTime = new Date();
+    const timeDiff = currentTime.getTime() - siteStartDate.getTime();
     
+    // 计算天、小时、分钟、秒
+    const days = Math.floor(timeDiff / (1000 * 3600 * 24));
+    const hours = Math.floor((timeDiff % (1000 * 3600 * 24)) / (1000 * 3600));
+    const minutes = Math.floor((timeDiff % (1000 * 3600)) / (1000 * 60));
+    const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+    
+    // 更新显示内容
     timeElement.textContent = `本博客已运行 ${days}天${hours}时${minutes}分${seconds}秒`;
-    
-    // 更新最后更新时间
-    lastUpdateTime = currentTime;
-    
-    // 清除之前的定时器
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-      timeoutId = null;
-    }
-    
-    // 使用requestAnimationFrame优先，setTimeout作为备用
-    if (typeof requestAnimationFrame !== 'undefined') {
-      animationFrameId = requestAnimationFrame(updateTime);
-    } else {
-      // 移动端兼容性：如果requestAnimationFrame不可用，使用setTimeout
-      timeoutId = setTimeout(updateTime, 1000);
-    }
   }
   
-  // 立即开始更新
-  updateTime();
-}
-
-// 页面加载后初始化
-if (typeof document !== 'undefined') {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSiteRunningTime);
-  } else {
-    // 使用setTimeout确保DOM完全渲染完成，特别是在移动端
-    setTimeout(initSiteRunningTime, 0);
+  // 页面加载后立即更新一次
+  if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        updateRunningTime();
+        // 每秒更新一次
+        setInterval(updateRunningTime, 1000);
+      });
+    } else {
+      updateRunningTime();
+      // 每秒更新一次
+      setInterval(updateRunningTime, 1000);
+    }
   }
-}
+})();
 </script>
