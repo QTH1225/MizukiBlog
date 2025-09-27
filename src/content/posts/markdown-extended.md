@@ -5,7 +5,6 @@ updated: 2024-11-29
 description: Read more about Markdown features in Mizuki
 image: ""
 tags:
-  - Example
   - Markdown
 category: Examples
 draft: false
