@@ -78,10 +78,9 @@ Code:
     This is second paragraph.
 
 Preview:
-
 ---
 
-This will be
+This mkwill be
 inline.
 
 This is second paragraph.
