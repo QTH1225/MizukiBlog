@@ -1,11 +1,12 @@
 ---
 title: About Me
-published: 2025-09-12
+published: 2025-09-15
 pinned: true
 description: Introduction of Myself
-tags: [Blogging]
+tags:
+  - Blogging
 category: Introduction
-licenseName: "Unlicensed"
+licenseName: Unlicensed
 author: Qin Tianhao
 draft: false
 ---

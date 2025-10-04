@@ -1,7 +1,7 @@
 ---
 title: 阅读| 提问的艺术
 author: Qin Tianhao
-published: 2025-10-07
+published: 2025-10-06
 tags:
   - Reading
 category: Guides

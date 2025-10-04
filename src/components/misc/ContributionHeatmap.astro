@@ -266,12 +266,16 @@ const formatNumber = (num: number) => {
   gap: 4px;
   margin-bottom: 0.5rem;
   margin-left: 40px; /* 与星期标签对齐 */
+  width: calc(100% - 40px); /* 减去左侧边距 */
 }
 
 .month-label {
   font-size: 0.85rem;
   color: var(--text-secondary);
   text-align: center;
+  flex-shrink: 0;
+  width: 13px; /* 与热力图格子宽度一致 */
+  margin-right: 4px; /* 与格子间距一致 */
 }
 
 .heatmap-grid {

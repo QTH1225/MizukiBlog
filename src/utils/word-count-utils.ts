@@ -22,22 +22,17 @@ export async function getWordCountStats() {
     })
   );
 
-  // 按日期分组统计总字数（只统计到今天为止的日期）
+  // 按日期分组统计总字数（统计所有日期，包括未来日期的文章）
   const dailyStats: Record<string, number> = {};
-  const today = new Date();
   
   postsWithWordCount.forEach((post) => {
     const date = new Date(post.published);
+    const dateKey = date.toISOString().split('T')[0]; // YYYY-MM-DD格式
     
-    // 只统计到今天为止的日期，过滤掉未来日期的文章
-    if (date <= today) {
-      const dateKey = date.toISOString().split('T')[0]; // YYYY-MM-DD格式
-      
-      if (!dailyStats[dateKey]) {
-        dailyStats[dateKey] = 0;
-      }
-      dailyStats[dateKey] += post.words;
+    if (!dailyStats[dateKey]) {
+      dailyStats[dateKey] = 0;
     }
+    dailyStats[dateKey] += post.words;
   });
 
   return {
@@ -52,8 +47,9 @@ export async function getWordCountStats() {
 
 // 生成GitHub风格的贡献热力图数据
 export function generateContributionData(dailyStats: Record<string, number>) {
-  const today = new Date();
-  const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+  const currentYear = new Date().getFullYear();
+  const firstDayOfYear = new Date(currentYear, 0, 1);
+  const lastDayOfYear = new Date(currentYear, 11, 31);
   
   const contributionData: Array<{
     date: string;
@@ -61,8 +57,8 @@ export function generateContributionData(dailyStats: Record<string, number>) {
     level: number;
   }> = [];
 
-  // 生成过去一年的日期数据
-  for (let d = new Date(oneYearAgo); d <= today; d.setDate(d.getDate() + 1)) {
+  // 生成当前年份的日期数据（包括未来日期）
+  for (let d = new Date(firstDayOfYear); d <= lastDayOfYear; d.setDate(d.getDate() + 1)) {
     const dateKey = d.toISOString().split('T')[0];
     const wordCount = dailyStats[dateKey] || 0;
     
