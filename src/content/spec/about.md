@@ -6,7 +6,7 @@
 
 所以，我决定开始尝试写博客，不仅仅是作为自己简历的补充，更是对于自己思考以及学习的记录。当然，这些记录可能很杂，专业性也不够强，但是我还是希望可以在网上开辟出一片属于我的小天地。
 ## 博客的搭建
-网站的搭建有多种方法，例如wordpress、hexo或者hugo等等。该网站在搭建过程中尝试了jekyll、mizuki以及quartz4等三种模板，并最终选择了该mizuki模板。下面是我所采用的这三种博客的特点以及使用建议。
+网站的搭建有多种方法，例如wordpress、hexo或者hugo等等。该网站在搭建过程中尝试了jekyll、mizuki以及quartz4等三种模板，并最终选择了该Mizuki模板。下面是我所采用的这三种博客的特点以及使用建议。
 ### 基于Minimal Mistakes的jekyll的网站模板
 基于[Minimal Mistakes](https://mademistakes.com/)的[Jekyll](https://jekyllrb.com/)的网站模板可以参考该github仓库。
 ::github{repo="mmistakes/minimal-mistakes"}
@@ -45,7 +45,7 @@
 - 英文帮助文档，虽然可以使用翻译器进行阅读，但是能有偏差
 
 推荐：喜欢极简主义的，对自己博客各种页面、组成要求不高。除笔记外没有过多功能。
-## Website News
+## 网站动态
 2025-09-19：该网站从原有jekyll模板改为基于astro的mizuki模板
 
 2024-11-16：个人博客基于jekyll模板搭建完成
