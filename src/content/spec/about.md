@@ -6,7 +6,7 @@
 
 所以，我决定开始尝试写博客，不仅仅是作为自己简历的补充，更是对于自己思考以及学习的记录。当然，这些记录可能很杂，专业性也不够强，但是我还是希望可以在网上开辟出一片属于我的小天地。
 ## 博客的搭建
-网站的搭建有多种方法，例如wordpress、hexo或者hugo等等。该网站在搭建过程中尝试了jekyll、mizuki以及quartz4等三种模板，并最终选择了该Mizuki模板。下面是我所采用的这三种博客的特点以及使用建议。
+网站的搭建有多种方法，例如wordpress、hexo或者hugo等等。该网站在搭建过程中尝试了jekyll、mizuki以及quartz4等多种模板，并最终选择了该Mizuki模板。下面是我所采用的这几种博客的特点以及使用建议。
 ### 基于Minimal Mistakes的jekyll的网站模板
 基于[Minimal Mistakes](https://mademistakes.com/)的[Jekyll](https://jekyllrb.com/)的网站模板可以参考该github仓库。
 ::github{repo="mmistakes/minimal-mistakes"}
@@ -17,7 +17,7 @@
 
 缺点：
 - 页面功能较少，仅适合于简单展示
-### 基于astro的mizuki模板
+### 基于Astro的Mizuki模板
 博主最开始是想使用基于[astro](https://docs.astro.build/en/getting-started/)的[fuwari](https://github.com/saicaca/fuwari/)主题，在网上查询后找到了功能更加全面丰富的[Mizuki](https://docs.mizuki.mysqil.com/)主题。两个主题使用人数都较多，功能也较为全面。这两个主题可以参考以下仓库。
 ::github{repo="saicaca/fuwari"}
 ::github{repo="matsuzaka-yuki/Mizuki"}
@@ -45,8 +45,19 @@
 - 英文帮助文档，虽然可以使用翻译器进行阅读，但是能有偏差
 
 推荐：喜欢极简主义的，对自己博客各种页面、组成要求不高。除笔记外没有过多功能。
+
+### 基于Stack的Hugo模板
+基于Stack的Hugo模板可以参考该仓库，其使用文档的链接为[Stack](https://stack.jimmycai.com/)。
+::github{repo="CaiJimmy/hugo-theme-stack"}
+优点：
+- 构建快，支持中英双语构建博客
+- 自由度比较高
+缺点：
+- 有些地方对中文支持不多，需要一定的英文基础
+- 移动端样式感觉不够美观
+
 ## 网站动态
-2025-09-19：该网站从原有jekyll模板改为基于astro的mizuki模板
+2025-09-19：该网站从原有jekyll模板改为基于Astro的Mizuki模板
 
 2024-11-16：个人博客基于jekyll模板搭建完成
 
