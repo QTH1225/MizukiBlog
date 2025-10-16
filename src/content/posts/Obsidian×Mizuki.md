@@ -10,3 +10,6 @@ draft: true
 ---
 ## Mizuki博客的搭建
 本博客使用基于
+
+## obsidian的博客管理方法
+obsidian是一个非常全面的 

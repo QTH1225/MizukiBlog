@@ -52,7 +52,7 @@ if (footerConfig.enable) {
             <div class="mb-2" set:html={customFooterHtml}></div>
         )}
         &copy; <span id="copyright-year">{currentYear}</span> {profileConfig.name}. All Rights Reserved. /
-        <span id="site-running-time" class="text-[var(--primary)] font-medium text-xs md:text-sm">本博客已运行 {siteRunningTime.days}天{siteRunningTime.hours}时{siteRunningTime.minutes}分{siteRunningTime.seconds}秒</span> /
+        <span id="site-running-time" class="text-[var(--primary)] font-medium text-xs md:text-sm">Blog running for {siteRunningTime.days} days {siteRunningTime.hours} hours {siteRunningTime.minutes} minutes {siteRunningTime.seconds} seconds</span> /
         <a class="transition link text-[var(--primary)] font-medium" target="_blank" href={url('rss/')}>RSS</a> /
         <a class="transition link text-[var(--primary)] font-medium" target="_blank" href={url('sitemap-index.xml')}>Sitemap</a><br>
         Powered by
@@ -84,7 +84,7 @@ if (footerConfig.enable) {
     const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
     
     // 更新显示内容
-    timeElement.textContent = `本博客已运行 ${days}天${hours}时${minutes}分${seconds}秒`;
+    timeElement.textContent = `Blog running for ${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
   }
   
   // 页面加载后立即更新一次
