@@ -5,6 +5,7 @@ published: 2025-10-07
 tags:
   - ANSYS
   - FEM
+  - Note
 category: Technology
 draft: true
 ---
