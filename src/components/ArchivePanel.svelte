@@ -75,13 +75,8 @@ onMount(async () => {
 	);
 
 	const groupedPostsArray = Object.keys(grouped).map((yearStr) => ({
-		year: Number.parseInt(yearStr),
-		// 在每个年份组内按照发布时间降序排序
-		posts: grouped[Number.parseInt(yearStr)].sort((a, b) => {
-			const dateA = new Date(a.data.published);
-			const dateB = new Date(b.data.published);
-			return dateB.getTime() - dateA.getTime(); // 降序排序
-		}),
+		year: Number.parseInt(yearStr, 10),
+		posts: grouped[Number.parseInt(yearStr, 10)],
 	}));
 
 	groupedPostsArray.sort((a, b) => b.year - a.year);

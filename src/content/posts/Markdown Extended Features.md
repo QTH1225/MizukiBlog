@@ -2,12 +2,11 @@
 title: Markdown Extended Features
 published: 2025-05-01
 updated: 2024-11-29
-description: Read more about Markdown features in Mizuki
-image: ""
-tags:
-  - Markdown
-category: Technology
-draft: false
+description: 'Read more about Markdown features in Mizuki'
+image: ''
+tags: [Demo, Example, Markdown, mizuki]
+category: 'Examples'
+draft: false 
 ---
 
 ## GitHub Repository Cards

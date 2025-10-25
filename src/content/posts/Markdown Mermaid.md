@@ -8,7 +8,6 @@ tags:
   - Markdown
 category: Technology
 draft: false
-series: "Mizuki"
 ---
 # Complete Guide to Markdown with Mermaid Diagrams
 
