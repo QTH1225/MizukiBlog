@@ -6,7 +6,7 @@ description: A simple example of a Markdown blog post with Mermaid.
 tags:
   - Mermaid
   - Markdown
-category: Technology
+category: CS
 draft: false
 ---
 # Complete Guide to Markdown with Mermaid Diagrams

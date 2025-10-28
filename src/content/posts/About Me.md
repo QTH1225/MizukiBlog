@@ -5,7 +5,7 @@ pinned: true
 description: Introduction of Myself
 tags:
   - Blogging
-category: Introduction
+category: Guides
 licenseName: Unlicensed
 author: Qin Tianhao
 draft: false

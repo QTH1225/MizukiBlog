@@ -5,7 +5,7 @@ description: 如何配置一个好看的Github Profile页面
 pinned: false
 tags:
   - Blogging
-category: Technology
+category: CS
 draft: true
 ---
 ## Github Profile是什么

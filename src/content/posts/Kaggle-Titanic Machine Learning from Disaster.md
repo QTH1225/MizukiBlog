@@ -5,6 +5,6 @@ published: 2025-10-07
 tags:
   - Kaggle
   - ML
-category: Technology
+category: CS
 draft: true
 ---

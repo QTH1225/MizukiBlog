@@ -5,7 +5,7 @@ pinned: false
 description: A simple example of a Markdown blog post.
 tags:
   - Markdown
-category: Technology
+category: CS
 licenseName: Unlicensed
 author: emn178
 sourceLink: https://github.com/emn178/markdown

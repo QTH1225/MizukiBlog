@@ -4,6 +4,6 @@ author: Qin Tianhao
 published: 2025-10-07
 tags:
   - Python
-category: Technology
+category: CS
 draft: true
 ---

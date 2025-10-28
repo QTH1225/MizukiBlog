@@ -4,8 +4,7 @@ author: Qin Tianhao
 published: 2025-10-07
 tags:
   - ANSYS
-  - FEM
   - Note
-category: Technology
+category: FEM
 draft: true
 ---

@@ -5,7 +5,7 @@ published: 2025-10-07
 tags:
   - Mizuki
   - Workflow
-category: Technology
+category: Tools
 draft: true
 ---
 ## Mizuki博客的搭建

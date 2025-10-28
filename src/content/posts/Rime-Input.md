@@ -4,7 +4,7 @@ author: Qin Tianhao
 published: 2025-10-07
 tags:
   - Template
-category: Technology
+category: Tools
 draft: true
 ---
 ## 小狼毫输入法配置
