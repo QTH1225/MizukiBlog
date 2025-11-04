@@ -533,8 +533,22 @@ export const widgetConfigs = {
 	pio: pioConfig, // 添加 pio 配置
 } as const;
 
+// 环境判断函数 - 判断是否为开发环境
+const isDevelopment = () => {
+  // 通过import.meta.env判断开发环境
+  if (typeof import.meta !== 'undefined' && import.meta.env) {
+    return import.meta.env.DEV === true || import.meta.env.MODE === 'development';
+  }
+  // 通过process.env判断开发环境（Node.js环境）
+  if (typeof process !== 'undefined' && process.env) {
+    return process.env.NODE_ENV === 'development';
+  }
+  // 默认返回false（生产环境）
+  return false;
+};
+
 export const umamiConfig = {
-	enabled: true, // 是否显示Umami统计
+	enabled: !isDevelopment(), // 开发环境禁用Umami统计
 	apiKey: "api_T6utcxMoGGKo1cdDXD1PrxoT7QWAj6dI", // 你的API密钥
 	baseUrl: "https://api.umami.is", // Umami Cloud API地址
 	scripts: `
