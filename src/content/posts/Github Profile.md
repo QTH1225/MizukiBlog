@@ -93,6 +93,7 @@ jobs:
 该项目的地址如下。
 ::github{repo="Platane/snk"}
 首先，我们需要创建一个workflow（例如 `snk.yml`​ ），内容如下，不需要进行任何提交或改动。
+
 ```yml
 name: generate animation
 
@@ -178,7 +179,7 @@ The number of views of this page is as follows.
 [![Ashutosh's github activity graph](https://github-readme-activity-graph.vercel.app/graph?username=QTH1225&theme=github-compact)](https://github.com/ashutosh00710/github-readme-activity-graph)
 ```
 ### GitHub Profile编辑器
-如果你不想进行繁琐的编辑与研究，那么你可以使用[GitHub Profile编辑器]([Github Profilinator - GitHub Profile README Generator](https://profilinator.rishav.dev/))。这是一个是一个可视化 profile 生成工具，使用者无需学习 Markdown 语法，仅需要在对应窗口中输入或者选择相应的内容，工具会自动生成 Markdown 脚本。脚本编辑完成以后，直接复制粘贴到自己的 Github 即可。
+如果你不想进行繁琐的编辑与研究，那么你可以使用[GitHub Profile编辑器](https://profilinator.rishav.dev/)。这是一个是一个可视化 profile 生成工具，使用者无需学习 Markdown 语法，仅需要在对应窗口中输入或者选择相应的内容，工具会自动生成 Markdown 脚本。脚本编辑完成以后，直接复制粘贴到自己的 Github 即可。
 <figure style="text-align: center; margin: 2rem auto; display: flex; flex-direction: column; align-items: center;">
     <img src="https://cdn.jsdelivr.net/gh/QTH1225/Blog_Figures/img/20251107102828998.png" alt="GitHub Profile编辑器" style="max-width: 80%; height: auto; display: block; margin: 0 auto;">
     <figcaption style="color: #666; font-style: italic; margin-top: 1rem; text-align: center; width: 100%;">GitHub Profile编辑器</figcaption>
