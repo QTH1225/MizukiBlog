@@ -4,7 +4,7 @@ author: Qin Tianhao
 published: 2025-10-07
 tags:
   - LaTeX
-category: Tools
+category: CS
 draft: true
 ---
 ## 模板介绍

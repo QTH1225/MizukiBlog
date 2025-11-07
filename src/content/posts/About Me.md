@@ -55,6 +55,6 @@ My current research focuses on durability of reinforced concrete in coastal area
 - Dec 2022:  Second Prize in Jiangsu Province Mechanics Innovation and Creativity Competition<br>
 
 ## News and Updates
-
+- **Nov 2025**：Our work has once again been selected for the finals of the Jiangsu Province Innovation, Entrepreneurship and Practice Competition. See you in Nantong!<br>
 - **June 2025**：Very glad to have been selected as the Excellent Undergraduate Graduation Project at CUMT!<br>
 - **Sept 2024**：Very pleased to pursue my Master's degree in Structural Engineering at China University of Mining and Technology!<br>
