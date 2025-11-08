@@ -16,6 +16,7 @@ draft: false
     <img src="https://cdn.jsdelivr.net/gh/QTH1225/Blog_Figures/img/20251107101308442.png" alt="GitHub Profile页面展示" style="max-width: 80%; height: auto; display: block; margin: 0 auto;">
     <figcaption style="color: #666; font-style: italic; margin-top: 1rem; text-align: center; width: 100%;">GitHub Profile页面展示</figcaption>
 </figure>
+
 ## 侧边栏的定制
 当然，在我们定制自己的github主页前，别忘了GitHub在侧边栏也可以添加自己的基本信息，包括名字、签名、公司、邮箱以及链接等。侧边栏也是个人信息中很重要的一部分。
 <figure style="text-align: center; margin: 2rem auto; display: flex; flex-direction: column; align-items: center;">

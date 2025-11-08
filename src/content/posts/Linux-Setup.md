@@ -4,8 +4,9 @@ author: Qin Tianhao
 description: Linux安装及基本配置
 published: 2025-01-01
 tags:
-  - linux
-category: CS
+  - Template
+  - Mizuki
+category: Technology
 draft: true
 ---
 ## Linux的双系统安装
