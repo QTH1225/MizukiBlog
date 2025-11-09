@@ -74,7 +74,7 @@ git merge upstream/master # 如果上游分支是 master
 ```
 当然，有时候上游的更改并不能令我们满意，这时候可以在合并冲突的时候保留自己的更改（例如各类API、个人信息等），这样可以让我们避免在更新后需要重新设置重复的信息。
 ## Obsidian的博客管理方法
-[Obsidian](https://obsidian.md/)是一个非常全面的笔记管理软件，可以用于知识库的建立、日记的管理和一些其他的功能。相比于[Typora](https://typoraio.cn/)这种，Obsidian不仅免费、具有丰富的插件生态，而且具有更多对笔记的管理方法，可以参考[Pkmer.net](https://pkmer.net/zh/)中对于知识管理的介绍。因此，博主认为obisdian更适合系统的笔记管理。但是这里只讲使用Obsidian进行博客管理的一些配置与注意事项，所以主要介绍Obsidian用于Mizuki博客管理的相关配置与联动，而不是专门介绍Obsidian的使用。配置完成后的效果如下图。
+[Obsidian](https://obsidian.md/)是一个非常全面的笔记管理软件，可以用于知识库的建立、日记的管理和一些其他的功能。相比于[Typora](https://typoraio.cn/)这种，Obsidian不仅免费、具有丰富的插件生态，而且具有更多对笔记的管理方法，可以参考[Pkmer](https://pkmer.net/zh/)中对于知识管理的介绍。因此，博主认为obisdian更适合系统的笔记管理。但是这里只讲使用Obsidian进行博客管理的一些配置与注意事项，所以主要介绍Obsidian用于Mizuki博客管理的相关配置与联动，而不是专门介绍Obsidian的使用。配置完成后的效果如下图。
 <figure style="text-align: center; margin: 2rem auto; display: flex; flex-direction: column; align-items: center;">
     <img src="https://cdn.jsdelivr.net/gh/QTH1225/Blog_Figures/img/20251109091203104.png" alt="博客编辑区" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
     <figcaption style="color: #666; font-style: italic; margin-top: 1rem; text-align: center; width: 100%;">博客编辑区</figcaption>
@@ -96,7 +96,7 @@ git merge upstream/master # 如果上游分支是 master
 ### 插件，让Obsidian更加智能
 但是Obsidian的默认功能往往显得不够智能，甚至只能称作“**Markdown编辑器**”而不是“**笔记管理软件**”，我们需要一些插件才能发挥它的功能。Obsidian中的插件分为核心插件与第三方插件，核心插件主要提供一些基本的功能（例如白板、知识图谱），而第三方插件则提供一些更高级的功能（例如git、LaTeX snippets）。这些第三方插件被统一存放在与仓库同级的`.obsidian`文件夹中，当你需要迁移你的插件时可以直接将该文件夹复制到新仓库中即可。
 
-这里介绍博主常用的一些插件，由于插件较多所以此处仅介绍影响操作和效率的插件，美化插件与部分功能插件不在此列。需要注意的是，当你下载了你所需要的插件后，请在`gitignore`文件中添加以下行以忽略`.obsidian`文件夹的上传，否则可能由于含有密钥而上传失败。
+这里介绍博主常用的一些插件，由于插件较多所以此处仅介绍影响操作和效率的插件，美化插件与部分功能插件不在此列。需要注意的是，当你下载了你所需要的插件后，请在`.gitignore`文件中添加以下行以忽略`.obsidian`文件夹的上传，否则可能由于含有密钥而上传失败。
 ```txt
 .obsidian
 ```
@@ -143,28 +143,28 @@ $$
 
 有朋友可能会问为什么不是解决笔记上传GitHub的难题呢？其实我们在其它软件中打开同样的文件目录后也可以进行上传，并且可以更方便地编写提交信息以供自己参考（例如使用[git-commit-plugin](https://github.com/RedJue/git-commit-plugin)插件）。
 ### Base，统览所有笔记的神
-在Obsidian正式版1.9.10版本以上，新增了`base`功能。该文件类型可以在Obsidian中显示库中所有的文件，起到管理所有笔记的效果。在目前最新的1.9.14版本中你可以在`.base`文件中自由地设置你想查看的笔记类型，例如可以按仓库或者标签显示。但是想要base真正成为obsidian管理博客的工具还需要进行以下调整。
+在Obsidian正式版1.9.10版本以上，新增了`Base`功能。该文件类型可以在Obsidian中显示库中所有的文件，起到管理所有笔记的效果。在目前最新的1.9.14版本中你可以在`.base`文件中自由地设置你想查看的笔记类型，例如可以按仓库或者标签显示。但是想要base真正成为obsidian管理博客的工具还需要进行以下调整。
 
 首先，由于`.base`是一类特殊的格式，所以我们需要在`.gitignore`中加入下面一行，这样可以在部署时不上传该文件，否则会出现报错。
 ```txt
 *.base
 ```
 
-其次，由于`.base`是直接读取文件夹下的文档名称并形成跳转链接的。因此，我们尽量采取Mizuki文档中的文件格式写法，而不是文件夹写法，也就是直接在`posts`目录下创建`md`文档，而不是创建文件夹。如果采用文件夹写法，虽然可以通过文章的title字段区分文章，但是由于需要保留跳转的功能，第一列需要保留一列index，这样不够美观。因此本博客也是采用文件写法，即直接在`posts`目录下创建`md`文件。同时配合图床来实现跳转图床的配置可以参考<a href="/posts/Piclist×Github/">Piclist×Github图床的搭建</a>（即[[Piclist×Github]]）一文。
+其次，由于`.base`是直接读取文件夹下的文档名称并形成跳转链接的。因此，我们尽量采取Mizuki文档中的文件格式写法，而不是文件夹写法，也就是直接在`posts`目录下创建`md`文档，而不是创建文件夹。如果采用文件夹写法，虽然可以通过文章的title字段区分文章，但是由于需要保留跳转的功能，第一列需要保留一列index，这样不够美观。因此本博客也是采用文件写法，即直接在`posts`目录下创建`md`文件。同时配合图床来实现跳转，图床的配置可以参考<a href="/posts/Piclist×Github/">Piclist×Github图床的搭建</a>（即[[Piclist×Github]]）一文。
 ### Windows与ios系统多端同步
-现在你可以在你的电脑上随时更新你的博客了，但是问题也随之而来了。你不可能随时带着你的电脑，有时候我们携带的只是手机或者平板，那么能否保持笔记的多端同步呢。这样我们随时都可以写笔记并把想法记录下来。虽然Obsidian提供了官方的同步服务，但是其高昂的价格让很多小伙伴望而却步，这时候我们可以使用`Remotely Save`插件，配合一些网盘进行同步操作。这样我们就可以随时随地写笔记了。当然，你也可以使用git插件每次进行拉取与提交，与vscode中的方式相同，这里不再赘述。
+现在你可以在你的电脑上随时更新你的博客了，但是问题也随之而来了。你不可能随时带着你的电脑，有时候我们携带的只是手机或者平板，那么能否保持笔记的多端同步呢。这样我们随时都可以写笔记并把想法记录下来。虽然Obsidian提供了官方的同步服务，但是其高昂的价格让很多小伙伴望而却步。这时候我们可以使用`Remotely Save`插件，配合一些网盘进行同步操作，这样我们就可以随时随地写笔记了。当然，你也可以使用git插件每次进行拉取与提交，与vscode中的方式相同，这里不再赘述。
 
 博主这里使用的是OneDrive个人版进行同步，在插件中鉴权后进行连接，然后设置自动同步即可。
 <figure style="text-align: center; margin: 2rem auto; display: flex; flex-direction: column; align-items: center;">
     <img src="https://cdn.jsdelivr.net/gh/QTH1225/Blog_Figures/img/20251109095223967.webp" alt="Remotely Save 插件设置" style="max-width: 80%; height: auto; display: block; margin: 0 auto;">
     <figcaption style="color: #666; font-style: italic; margin-top: 1rem; text-align: center; width: 100%;">Remotely Save 插件设置</figcaption>
 </figure>
-现在我们已经把笔记上传到服务端了，现在我们需要在其他设备上写笔记了。这时候我们需要创建一个**与同步仓库同名的仓库**。在新设备上下载`Remotely Save`插件后再次按照上述步骤重新设置一遍，然后选择`如果修改超过百分比则终止同步`为100%（即去除此保护），因为我们要将远端的所有文件同步到本地。同步完成后可以设置一个最大更改限制。
+现在我们已经把笔记上传到服务端了，现在我们需要在其他设备上写笔记了。这时候我们需要创建一个与**同步仓库同名的仓库** 。在新设备上下载Remotely Save插件后再次按照上述步骤重新设置一遍，然后选择`如果修改超过百分比则终止同步`为100%（即去除此保护），因为我们要将远端的所有文件同步到本地。同步完成后可以设置一个最大更改限制。
 <figure style="text-align: center; margin: 2rem auto; display: flex; flex-direction: column; align-items: center;">
     <img src="https://cdn.jsdelivr.net/gh/QTH1225/Blog_Figures/img/20251109095900044.webp" alt="最大修改限制设置" style="max-width: 80%; height: auto; display: block; margin: 0 auto;">
     <figcaption style="color: #666; font-style: italic; margin-top: 1rem; text-align: center; width: 100%;">最大修改限制设置</figcaption>
 </figure>
-接下来点击左侧的同步按钮进行同步即可，静待一会就可以同步完了。当然，你也可以通过`Git`插件的拉取上传来进行同步。不过博主这里更加习惯同步与部署功能分离。这样可以在部署前有一定检查与完善的空间。
+接下来点击左侧的同步按钮进行同步即可，静待一会就可以同步完了。当然，你也可以通过Git插件的拉取上传来进行同步。不过博主这里更加习惯同步与部署功能分离。这样可以在部署前有一定检查与完善的空间。
 
 ## 博客寄语
 最后，正所谓“打江山容易，守江山难”。有经验的人可以在一天之内部署七八个博客，但是七八百人中也不一定能找到一个尝试持续写博客的博主。相比于如何搭建更加漂亮的博客，如何尝试持续性地产出自己的想法、自己的感悟才是每一个博主应该思考与尝试的。当然，我也不例外。
