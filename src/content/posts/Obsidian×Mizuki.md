@@ -1,6 +1,7 @@
 ---
 title: Obsidian×Mizuki博客发布流程
 author: Qin Tianhao
+description: Obsidian×Mizuki博客发布流程
 published: 2025-11-09
 tags:
   - Mizuki
