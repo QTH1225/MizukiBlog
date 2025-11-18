@@ -4,8 +4,9 @@ author: Qin Tianhao
 published: 2025-01-01
 tags:
   - LaTeX
+  - Updating
 category: CS
-draft: true
+draft: false
 ---
 ## 什么是Snippets
 snippets原本是在vscode中设置一些重复性的代码片段的快捷键，使得我们可以快速插入长段重复率较高的代码。当你在markdown中打公式的时候，你一定会体会到那种LaTeX的冗长与复杂。虽然LaTeX公式在很多平台被认为是一种对公式的标准写法，但是想要在不进行任何设置的情况下快速而准确地打出来基本是不可能的。而Obsidian中的LaTeX suite插件受到[Gilles Castel](https://castel.dev/)的启发，也实现了在obsidian中快速插入公式的操作。此处也列出一些参考文档以供大家学习。
@@ -14,6 +15,12 @@ snippets原本是在vscode中设置一些重复性的代码片段的快捷键，
 - https://forum-zh.obsidian.md/t/topic/22006
 
 ::github{repo="artisticat1/obsidian-latex-suite"}
+
+此外，由于本节涉及大量的LaTeX符号。所以最好对LaTeX符号有一定的了解。如果你需要一些资料可以参考如下链接：
+
+- [LaTeX symbols](https://www.cmor-faculty.rice.edu/~heinken/latex/symbols.pdf)（大量的LaTeX符号介绍）
+- [Detexify LaTeX handwritten symbol recognition](https://detexify.kirelabs.org/classify.html)（手写识别符号并给出LaTeX公式）
+- [The Short Introduction to LaTeX2e (Chinese Simplified)](https://ctan.math.washington.edu/tex-archive/info/lshort/chinese/lshort-zh-cn.pdf)（LaTeX2e，可以入门与了解LaTeX）
 
 ## 我LaTeX的Snippets配置（持续更新）
 为了让大家可以更好地编辑自己的公式输入，这里对LaTeX suite的语法进行一定介绍并将自己的配置贴在文章末尾以供参考。
@@ -30,6 +37,7 @@ snippets原本是在vscode中设置一些重复性的代码片段的快捷键，
 - `w` : 只有在trigger后面或者前面有`.`, `,`, `-`这类标点时启用
 
 好的现在我们知道了基本语法，让我们一段一段来看这个LaTeX suite的配置。
+
 ### 数学环境
 这段主要是配置数学环境，以`mk`表示行内公式，`dm`表示行间公式。
 ```
@@ -38,9 +46,7 @@ snippets原本是在vscode中设置一些重复性的代码片段的快捷键，
     {trigger: "dm", replacement: "$$\n$0\n$$", options: "tAw"},
     {trigger: "beg", replacement: "\\begin{$0}\n$1\n\\end{$0}", options: "mA"},
 ```
-
-
-
+下面这段是 符号以及
 ```
     // Dashes
     // {trigger: "--", replacement: "–", options: "tA"},
@@ -98,7 +104,9 @@ snippets原本是在vscode中设置一些重复性的代码片段的快捷键，
     {trigger: "\\\\(${GREEK}|${SYMBOL}) und", replacement: "\\underline{\\[[0]]}", options: "rmA"},
     {trigger: "\\\\(${GREEK}),\\.", replacement: "\\boldsymbol{\\[[0]]}", options: "rmA"},
     {trigger: "\\\\(${GREEK})\\.,", replacement: "\\boldsymbol{\\[[0]]}", options: "rmA"},
-
+```
+### 上下标
+```
 
     // Operations
     {trigger: "te", replacement: "\\text{$0}", options: "m"},
@@ -284,7 +292,6 @@ snippets原本是在vscode中设置一些重复性的代码片段的快捷键，
 
 ```
 
-
 ### 物理符号
 ```
 
@@ -307,7 +314,6 @@ snippets原本是在vscode中设置一些重复性的代码片段的快捷键，
 
 
 ```
-
 
 ### 化学符号
 
@@ -343,7 +349,6 @@ snippets原本是在vscode中设置一些重复性的代码片段的快捷键，
     {trigger: "matrix", replacement: "\\begin{matrix}\n$0\n\\end{matrix}", options: "mA"},
 
 ```
-
 ### 括号与边界符号
 ```
 
@@ -364,6 +369,9 @@ snippets原本是在vscode中设置一些重复性的代码片段的快捷键，
     {trigger: "lra", replacement: "\\left< $0 \\right> $1", options: "mA"},
 
 
+```
+### 自动转换与自动化
+```
     // Misc
 
     // Automatically convert standalone letters in text to math (except a, A, I).
@@ -404,14 +412,15 @@ snippets原本是在vscode中设置一些重复性的代码片段的快捷键，
 
 
 
-<details><summary>点击展开/收起</summary>
+<details><summary>原代码-点击展开/收起</summary>
+
 ```
 [
+
     // Math mode
     {trigger: "mk", replacement: "$$0$", options: "tA"},
     {trigger: "dm", replacement: "$$\n$0\n$$", options: "tAw"},
     {trigger: "beg", replacement: "\\begin{$0}\n$1\n\\end{$0}", options: "mA"},
-
 
     // Dashes
     // {trigger: "--", replacement: "–", options: "tA"},
@@ -736,6 +745,7 @@ snippets原本是在vscode中设置一些重复性的代码片段的快捷键，
 		return output;
 	}, options: "mA", description: "N x N identity matrix"},
 ]
+
 ```
 </details>
 

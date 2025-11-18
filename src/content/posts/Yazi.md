@@ -3,7 +3,7 @@ title: 文件管理器Yazi的安装
 published: 2022-07-01
 tags:
   - tools
-category: Technology
+category: Tools
 draft: true
 ---
 
