@@ -673,7 +673,7 @@ const transparentClass = shouldEnableTransparency
 <div class={`absolute w-full z-30 pointer-events-none ${mobileNonHomeBannerClass ? 'mobile-main-no-banner' : ''} ${siteConfig.wallpaperMode.defaultMode === 'none' ? 'no-banner-layout' : ''} ${transparentClass}`} style={`top: ${finalMainPanelTop}`}>
     <!-- The pointer-events-none here prevent blocking the click event of the TOC -->
     <div class="relative max-w-[var(--page-width)] mx-auto pointer-events-auto">
-        <div id="main-grid" class={`transition duration-700 w-full left-0 right-0 grid ${gridCols} grid-rows-[auto_1fr_auto] lg:grid-rows-[auto] mx-auto gap-4 px-2 md:px-4 ${!mobileShowSidebar ? 'mobile-no-sidebar' : ''}`}
+        <div id="main-grid" class={`transition duration-700 w-full left-0 right-0 grid ${gridCols} grid-rows-[auto_1fr_auto] lg:grid-rows-[auto] mx-auto gap-4 px-2 md:px-4 ${!mobileShowSidebar ? 'mobile-no-sidebar' : ''} ${isBothSidebarMode ? 'mobile-both-sidebar' : ''}`}
              data-layout-mode={defaultPostListLayout}
         >
             <!-- Banner image credit -->
@@ -786,6 +786,27 @@ body.no-banner-mode .absolute.w-full.z-30 {
         width: 100% !important;
         max-width: 100% !important;
         margin: 0 !important;
+    }
+    
+    /* 修复双侧边栏模式在移动端的布局问题 */
+    .mobile-both-sidebar {
+        /* 确保在移动端使用单列布局 */
+        grid-template-columns: 1fr !important;
+        /* 确保左右padding对称 */
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+    
+    /* 确保移动端主内容区域居中且全宽 */
+    .mobile-both-sidebar main {
+        grid-column: 1 / -1 !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+    }
+    
+    /* 移动端footer也要居中 */
+    .mobile-both-sidebar .footer {
+        grid-column: 1 / -1 !important;
     }
 }
 
@@ -947,6 +968,27 @@ body.no-banner-mode .absolute.w-full.z-30 {
         height: 12vh !important;
         min-height: 80px !important;
         max-height: 120px !important;
+    }
+    
+    /* 修复双侧边栏模式在平板端的布局问题 */
+    .mobile-both-sidebar {
+        /* 确保在平板端使用单列布局 */
+        grid-template-columns: 1fr !important;
+        /* 确保左右padding对称 */
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
+    /* 确保平板端主内容区域居中且全宽 */
+    .mobile-both-sidebar main {
+        grid-column: 1 / -1 !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+    }
+    
+    /* 平板端footer也要居中 */
+    .mobile-both-sidebar .footer {
+        grid-column: 1 / -1 !important;
     }
 }
 

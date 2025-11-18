@@ -1,8 +1,8 @@
 ---
-import { siteConfig } from "../config";
 import Icon from "../components/misc/Icon.astro";
 import IconifyLoader from "../components/misc/IconifyLoader.astro";
 import SkillsChart from "../components/skills/SkillsChart.astro";
+import { siteConfig } from "../config";
 import { UNCATEGORIZED } from "../constants/constants";
 import {
 	getAdvancedSkills,
@@ -11,6 +11,8 @@ import {
 	getTotalExperience,
 	skillsData,
 } from "../data/skills";
+import I18nKey from "../i18n/i18nKey";
+import { i18n } from "../i18n/translation";
 
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 
@@ -74,24 +76,24 @@ const getLevelWidth = (level: string) => {
 const getCategoryText = (category: string) => {
 	switch (category) {
 		case "frontend":
-			return "前端开发";
+			return i18n(I18nKey.skillsFrontend);
 		case "backend":
-			return "后端开发";
+			return i18n(I18nKey.skillsBackend);
 		case "database":
-			return "数据库";
+			return i18n(I18nKey.skillsDatabase);
 		case "tools":
-			return "开发工具";
+			return i18n(I18nKey.skillsTools);
 		case "other":
-			return "其他技能";
+			return i18n(I18nKey.skillsOther);
 		case UNCATEGORIZED:
-			return "未分类";
+			return i18n(I18nKey.uncategorized);
 		default:
 			return category;
 	}
 };
 
-const title = "技能"; 
-const subtitle = "我的专业技能展示"; 
+const title = i18n(I18nKey.skills);
+const subtitle = i18n(I18nKey.skillsSubtitle);
 
 // 收集所有技能图标用于预加载
 const allIcons = skillsData.map((skill) => skill.icon).filter(Boolean);
@@ -110,10 +112,10 @@ let animated = false;
         <h1 class="text-4xl font-bold text-black/90 dark:text-white/90 mb-2 relative
                   before:w-1 before:h-8 before:rounded-md before:bg-[var(--primary)]
                   before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-4">
-          技能
+          {i18n(I18nKey.skills)}
         </h1>
         <p class="text-lg text-black/60 dark:text-white/60">
-          我的专业技能展示
+          {i18n(I18nKey.skillsSubtitle)}
         </p>
       </div>
 
@@ -126,7 +128,7 @@ let animated = false;
           <h2 class="text-2xl font-bold text-black/90 dark:text-white/90 mb-4 relative
                     before:w-1 before:h-6 before:rounded-md before:bg-[var(--primary)]
                     before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-4">
-            专业技能
+            {i18n(I18nKey.skillsAdvancedTitle)}
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             {advancedSkills.map((skill) => (
@@ -149,10 +151,10 @@ let animated = false;
                         {skill.name}
                       </h3>
                       <span class={`px-2 py-1 text-xs rounded-full ${getLevelColor(skill.level)}`}>
-                        {skill.level === 'expert' ? '专家' :
-                         skill.level === 'advanced' ? '高级' :
-                         skill.level === 'intermediate' ? '中级' :
-                         '初级'}
+                        {skill.level === 'expert' ? i18n(I18nKey.skillLevelExpert) :
+                         skill.level === 'advanced' ? i18n(I18nKey.skillLevelAdvanced) :
+                         skill.level === 'intermediate' ? i18n(I18nKey.skillLevelIntermediate) :
+                         i18n(I18nKey.skillLevelBeginner)}
                       </span>
                     </div>
                     <p class="text-black/60 dark:text-white/60 mb-3 text-sm">
@@ -160,9 +162,9 @@ let animated = false;
                     </p>
                     <div class="mb-3">
                       <div class="flex justify-between text-sm mb-1">
-                        <span class="text-black/60 dark:text-white/60">经验</span>
+                        <span class="text-black/60 dark:text-white/60">{i18n(I18nKey.skillExperience)}</span>
                         <span class="text-black/80 dark:text-white/80">
-                          {skill.experience.years} 年{skill.experience.months > 0 ? ` ${skill.experience.months} 个月` : ''}
+                          {skill.experience.years} {i18n(I18nKey.skillYears)}{skill.experience.months > 0 ? ` ${skill.experience.months} ${i18n(I18nKey.skillMonths)}` : ''}
                         </span>
                       </div>
                       <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
@@ -190,7 +192,7 @@ let animated = false;
       )}
 
       <!-- 按分类展示技能 -->
-      <div class="space-y-8">
+      <div class="space-y-8 skills-container" style="container-type: inline-size;">
         {categories.map((category) => {
           const categorySkills = skillsByCategory[category];
           if (categorySkills.length === 0) return null;
@@ -205,7 +207,7 @@ let animated = false;
                   ({categorySkills.length})
                 </span>
               </h2>
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div class="skills-grid-container grid grid-cols-1 gap-4">
                 {categorySkills.map((skill) => (
                   <div class="bg-transparent rounded-lg border border-black/10 dark:border-white/10 p-4 hover:shadow-lg transition-shadow duration-300">
                     <div class="flex items-start gap-3">
@@ -226,10 +228,10 @@ let animated = false;
                             {skill.name}
                           </h3>
                           <span class={`px-2 py-1 text-xs rounded-full shrink-0 ml-2 ${getLevelColor(skill.level)}`}>
-                            {skill.level === 'expert' ? '专家' :
-                             skill.level === 'advanced' ? '高级' :
-                             skill.level === 'intermediate' ? '中级' :
-                             '初级'}
+                            {skill.level === 'expert' ? i18n(I18nKey.skillLevelExpert) :
+                             skill.level === 'advanced' ? i18n(I18nKey.skillLevelAdvanced) :
+                             skill.level === 'intermediate' ? i18n(I18nKey.skillLevelIntermediate) :
+                             i18n(I18nKey.skillLevelBeginner)}
                           </span>
                         </div>
                         <p class="text-black/60 dark:text-white/60 mb-2 text-sm line-clamp-2">
@@ -237,7 +239,7 @@ let animated = false;
                         </p>
                         <div class="text-xs text-black/60 dark:text-white/60">
                           <span>
-                            {skill.experience.years} 年{skill.experience.months > 0 ? ` ${skill.experience.months} 个月` : ''}
+                            {skill.experience.years} {i18n(I18nKey.skillYears)}{skill.experience.months > 0 ? ` ${skill.experience.months} ${i18n(I18nKey.skillMonths)}` : ''}
                           </span>
                         </div>
                         <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-2">
@@ -260,3 +262,31 @@ let animated = false;
   
 
 </MainGridLayout>
+
+<style>
+  /* 使用容器查询根据内容区域实际宽度决定列数 */
+  .skills-container {
+    /* 调试提示：显示容器宽度 */
+    position: relative;
+  }
+  
+  /* 移动端：单列 */
+  .skills-grid-container {
+    grid-template-columns: 1fr;
+    transition: grid-template-columns 0.3s ease;
+  }
+  
+  /* 内容区域宽度 >= 640px：2列 */
+  @container (min-width: 640px) {
+    .skills-grid-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  /* 内容区域宽度 >= 900px：3列（进一步降低阈值）*/
+  @container (min-width: 900px) {
+    .skills-grid-container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

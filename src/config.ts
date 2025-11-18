@@ -404,7 +404,7 @@ export const footerConfig: FooterConfig = {
  * sidebar: 控制组件在左侧栏和右侧栏,注意移动端是不会显示右侧栏的内容(unilateral模式除外),在设置了right属性的时候请确保你使用双侧(both)布局
  */
 export const sidebarLayoutConfig: SidebarLayoutConfig = {
-	// 侧边栏位置：单侧(c)或双侧(both)
+	// 侧边栏位置：单侧(unilateral)或双侧(both)
 	position: "both",
 
 	// 侧边栏组件配置列表

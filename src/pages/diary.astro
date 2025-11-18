@@ -62,7 +62,7 @@ function formatTime(dateString: string): string {
 <MainGridLayout title={i18n(I18nKey.diary)} description="即刻短文">
 	<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
 		<div class="card-base z-10 px-4 py-4 md:px-6 md:py-5 relative w-full">
-			<div class="relative max-w-4xl">
+		<div class="relative max-w-4xl mx-auto w-full px-2 md:px-0">
 				<!-- 页面头部 -->
 				<div class="moments-header mb-6">
 					<div class="header-content">
@@ -93,7 +93,7 @@ function formatTime(dateString: string): string {
 					<div class="image-item relative rounded-md overflow-hidden aspect-square cursor-pointer hover:scale-105 transition-transform">
 						<img 
 							src={image} 
-							alt={i18n(I18nKey.diaryImage)}
+								alt="diary moment image"
 							class="w-full h-full object-cover"
 							loading="lazy"
 						/>
@@ -268,10 +268,6 @@ function formatTime(dateString: string): string {
 	
 	/* 优化小屏幕显示 */
 	@media (max-width: 480px) {
-		.card-base {
-			margin: 0 -0.5rem;
-		}
-		
 		.moment-item {
 			border-radius: 8px;
 		}
