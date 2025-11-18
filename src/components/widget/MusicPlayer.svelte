@@ -372,7 +372,7 @@ onDestroy(() => {
 
 {#if musicPlayerConfig.enable}
 {#if showError}
-<div class="fixed bottom-20 left-4 z-[60] max-w-sm">
+<div class="fixed bottom-20 right-4 z-[60] max-w-sm">
     <div class="bg-red-500 text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 animate-slide-up">
         <Icon icon="material-symbols:error" class="text-xl flex-shrink-0" />
         <span class="text-sm flex-1">{errorMessage}</span>
@@ -383,7 +383,7 @@ onDestroy(() => {
 </div>
 {/if}
 
-<div class="music-player fixed bottom-4 left-4 z-50 transition-all duration-300 ease-in-out"
+<div class="music-player fixed bottom-4 right-4 z-50 transition-all duration-300 ease-in-out"
      class:expanded={isExpanded}
      class:hidden-mode={isHidden}>
     <!-- 隐藏状态的小圆球 -->
@@ -417,19 +417,20 @@ onDestroy(() => {
     <div class="mini-player card-base bg-[var(--float-panel-bg)] shadow-xl rounded-2xl p-3 transition-all duration-500 ease-in-out"
          class:opacity-0={isExpanded || isHidden}
          class:scale-95={isExpanded || isHidden}
-         class:pointer-events-none={isExpanded || isHidden}
-         on:click={toggleExpanded}
-         on:keydown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                toggleExpanded();
-            }
-         }}
-         role="button"
-         tabindex="0"
-         aria-label="展开音乐播放器">
-        <div class="flex items-center gap-3 cursor-pointer">
-            <div class="cover-container relative w-12 h-12 rounded-full overflow-hidden">
+         class:pointer-events-none={isExpanded || isHidden}>
+        <div class="flex items-center gap-3">
+            <!-- 封面区域：点击控制播放/暂停 -->
+            <div class="cover-container relative w-12 h-12 rounded-full overflow-hidden cursor-pointer"
+                 on:click={togglePlay}
+                 on:keydown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        togglePlay();
+                    }
+                 }}
+                 role="button"
+                 tabindex="0"
+                 aria-label={isPlaying ? '暂停' : '播放'}>
                 <img src={getAssetPath(currentSong.cover)} alt="封面"
                      class="w-full h-full object-cover transition-transform duration-300"
                      class:spinning={isPlaying && !isLoading}
@@ -444,7 +445,18 @@ onDestroy(() => {
                     {/if}
                 </div>
             </div>
-            <div class="flex-1 min-w-0">
+            <!-- 歌曲信息区域：点击展开播放器 -->
+            <div class="flex-1 min-w-0 cursor-pointer"
+                 on:click={toggleExpanded}
+                 on:keydown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleExpanded();
+                    }
+                 }}
+                 role="button"
+                 tabindex="0"
+                 aria-label="展开音乐播放器">
                 <div class="text-sm font-medium text-90 truncate">{currentSong.title}</div>
                 <div class="text-xs text-50 truncate">{currentSong.artist}</div>
             </div>
@@ -597,7 +609,7 @@ onDestroy(() => {
         </div>
     </div>
     {#if showPlaylist}
-        <div class="playlist-panel float-panel fixed bottom-20 left-4 w-80 max-h-96 overflow-hidden z-50"
+        <div class="playlist-panel float-panel fixed bottom-20 right-4 w-80 max-h-96 overflow-hidden z-50"
              transition:slide={{ duration: 300, axis: 'y' }}>
             <div class="playlist-header flex items-center justify-between p-4 border-b border-[var(--line-divider)]">
                 <h3 class="text-lg font-semibold text-90">{i18n(Key.playlist)}</h3>
@@ -691,14 +703,14 @@ onDestroy(() => {
     width: 280px;
     position: absolute;
     bottom: 0;
-    /*right: 0;*/
-    left: 0;
+    right: 0;
+    /*left: 0;*/
 }
 .expanded-player {
     width: 320px;
     position: absolute;
     bottom: 0;
-    left: 0;
+    right: 0;
 }
 
 .animate-pulse {
@@ -720,20 +732,20 @@ onDestroy(() => {
 @media (max-width: 768px) {
     .music-player {
         max-width: 280px;
-        left: 8px !important;
+        /*left: 8px !important;*/
         bottom: 8px !important;
-        /*right: 8px !important;*/
+        right: 8px !important;
     }
     .music-player.expanded {
         width: calc(100vw - 16px);
         max-width: none;
-        left: 8px !important;
-        /*right: 8px !important;*/
+        /*left: 8px !important;*/
+        right: 8px !important;
     }
     .playlist-panel {
         width: calc(100vw - 16px) !important;
-        left: 8px !important;
-        /*right: 8px !important;*/
+        /*left: 8px !important;*/
+        right: 8px !important;
         max-width: none;
     }
     .controls {
