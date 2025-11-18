@@ -29,6 +29,9 @@ const moments = [
 // 按照时间从新到旧排序
 const sortedMoments = [...moments].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
+// 获取日记统计数据
+const diaryStats = getDiaryStats();
+
 // 时间格式化函数
 function formatTime(dateString: string): string {
 	var TG = 8;

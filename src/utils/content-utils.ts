@@ -77,6 +77,25 @@ export async function getTagList(): Promise<Tag[]> {
 	return keys.map((key) => ({ name: key, count: countMap[key] }));
 }
 
+// 获取所有文章的最新发布日期
+export async function getLatestPostDate(): Promise<Date | null> {
+	const allBlogPosts = await getCollection("posts", ({ data }) => {
+		return data.draft !== true;
+	});
+
+	if (allBlogPosts.length === 0) {
+		return null;
+	}
+
+	// 找到所有文章中最新的发布日期
+	const latestDate = allBlogPosts.reduce((latest, post) => {
+		const postDate = new Date(post.data.published);
+		return postDate > latest ? postDate : latest;
+	}, new Date(0));
+
+	return latestDate;
+}
+
 export type Category = {
 	name: string;
 	count: number;

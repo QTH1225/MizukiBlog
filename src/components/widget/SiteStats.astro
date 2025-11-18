@@ -2,7 +2,7 @@
 import { Icon } from "astro-icon/components";
 import I18nKey from "../../i18n/i18nKey";
 import { i18n } from "../../i18n/translation";
-import { getSortedPosts } from "../../utils/content-utils";
+import { getSortedPosts, getLatestPostDate } from "../../utils/content-utils";
 import { getCategoryList, getTagList } from "../../utils/content-utils";
 import WidgetLayout from "./WidgetLayout.astro";
 import { siteConfig } from "../../config";
@@ -15,7 +15,7 @@ interface Props {
 const { class: className, style } = Astro.props;
 
 // 从配置中获取站点开始日期
-const siteStartDate = siteConfig.siteStartDate || "2025-01-01";
+const siteStartDate = siteConfig.siteStartDate || "2025-10-01";
 
 // 获取所有文章
 const posts = await getSortedPosts();
@@ -45,7 +45,8 @@ function formatNumber(num: number): string {
 }
 
 // 获取最新文章日期（用于客户端计算）
-const lastPostDate = posts.length > 0 ? posts[0].data.published.toISOString() : null;
+const latestPostDate = await getLatestPostDate();
+const lastPostDate = latestPostDate ? latestPostDate.toISOString() : null;
 
 const stats = [
   {
