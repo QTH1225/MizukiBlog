@@ -1,6 +1,6 @@
 ---
 import ImageWrapper from "../components/misc/ImageWrapper.astro";
-import { siteConfig, siteConfig } from "../config";
+import { sidebarLayoutConfig, siteConfig } from "../config";
 import localAnimeList from "../data/anime";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
@@ -15,6 +15,9 @@ if (!siteConfig.featurePages.anime) {
 if (!siteConfig.featurePages.anime) {
 	return Astro.redirect("/404/");
 }
+
+// 检查是否为双侧边栏模式
+const isBothSidebarMode = sidebarLayoutConfig.position === "both";
 
 // Bangumi API配置
 const BANGUMI_USER_ID = siteConfig.bangumi?.userId || "your-user-id"; // 用户ID
@@ -126,7 +129,9 @@ async function processBangumiData(data: any, status: string) {
 					? item.subject.tags.slice(0, 3).map((tag: any) => tag.name)
 					: ["Unknown"],
 				studio: studio,
-				link: `https://bgm.tv/subject/${item.subject.id}` || "#",
+				link: item.subject?.id
+					? `https://bgm.tv/subject/${item.subject.id}`
+					: "#",
 				progress: progress,
 				totalEpisodes: totalEpisodes,
 				startDate: item.subject?.date || "",
@@ -138,24 +143,42 @@ async function processBangumiData(data: any, status: string) {
 }
 
 // 根据模式获取番剧列表
-let animeList = [];
+let animeList: typeof localAnimeList = [];
 if (ANIME_MODE === "local") {
 	// 使用本地配置
 	animeList = localAnimeList;
 } else {
 	// 使用Bangumi API（默认模式）
-	// 获取与处理在看列表（type=3）看过列表（type=2）
+	// 获取与处理在看列表（type=3）想看列表（type=1）看过列表（type=2）搁置列表（type=4）抛弃列表（type=5）
 	const watchingData = await fetchBangumiCollection(BANGUMI_USER_ID, 2, 3);
+	const plannedData = await fetchBangumiCollection(BANGUMI_USER_ID, 2, 1);
 	const completedData = await fetchBangumiCollection(BANGUMI_USER_ID, 2, 2);
+	const onHoldData = await fetchBangumiCollection(BANGUMI_USER_ID, 2, 4);
+	const droppedData = await fetchBangumiCollection(BANGUMI_USER_ID, 2, 5);
 
 	const watchingList = watchingData
 		? await processBangumiData(watchingData, "watching")
 		: [];
+	const plannedList = plannedData
+		? await processBangumiData(plannedData, "planned")
+		: [];
 	const completedList = completedData
 		? await processBangumiData(completedData, "completed")
 		: [];
+	const onHoldList = onHoldData
+		? await processBangumiData(onHoldData, "onhold")
+		: [];
+	const droppedList = droppedData
+		? await processBangumiData(droppedData, "dropped")
+		: [];
 
-	animeList = [...watchingList, ...completedList];
+	animeList = [
+		...watchingList,
+		...plannedList,
+		...completedList,
+		...onHoldList,
+		...droppedList,
+	];
 }
 
 // 获取状态的翻译文本和样式
@@ -181,6 +204,19 @@ function getStatusInfo(status: string) {
 				class:
 					"bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
 				icon: "⏰",
+			};
+		case "onhold":
+			return {
+				text: i18n(I18nKey.animeStatusOnHold),
+				class:
+					"bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
+				icon: "⏸",
+			};
+		case "dropped":
+			return {
+				text: i18n(I18nKey.animeStatusDropped),
+				class: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
+				icon: "✗",
 			};
 		default:
 			return {
@@ -226,8 +262,8 @@ const stats = {
           <div class="filter-container flex flex-wrap gap-2">
             <button class="filter-tag active" data-status="all">{i18n(I18nKey.animeFilterAll)}</button>
             <button class="filter-tag" data-status="watching">{i18n(I18nKey.animeStatusWatching)}</button>
-            <button class="filter-tag" data-status="completed">{i18n(I18nKey.animeStatusCompleted)}</button>
             <button class="filter-tag" data-status="planned">{i18n(I18nKey.animeStatusPlanned)}</button>
+            <button class="filter-tag" data-status="completed">{i18n(I18nKey.animeStatusCompleted)}</button>
             {ANIME_MODE === 'bangumi' && (
               <>
                 <button class="filter-tag" data-status="onhold">{i18n(I18nKey.animeStatusOnHold)}</button>
@@ -252,7 +288,11 @@ const stats = {
             </p>
           </div>
         ) : animeList.length > 0 ? (
-          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+          <div class={`grid gap-4 md:gap-6 ${
+            isBothSidebarMode 
+              ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-4" 
+              : "grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+          }`}>
             {animeList.map(anime => {
               const statusInfo = getStatusInfo(anime.status);
               const progressPercent = anime.totalEpisodes > 0 ? (anime.progress / anime.totalEpisodes) * 100 : 0;
@@ -386,15 +426,40 @@ const stats = {
       transform: translateY(-1px);
     }
     
-    /* 隐藏动画 */
-    .anime-item {
-      transition: all 0.3s ease;
+    /* 动画卡片样式 - 使用 FLIP 动画技术实现洗牌效果 */
+    [data-anime-status] {
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
-    .anime-item.hidden {
+    /* 完全隐藏 */
+    [data-anime-status].anime-hidden {
+      display: none;
+    }
+    
+    /* 动画中的卡片 - 使用绝对定位进行位置过渡 */
+    [data-anime-status].anime-animating {
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* 淡出效果（用于要隐藏的卡片） - 缩小并淡出 */
+    [data-anime-status].anime-fade-out {
       opacity: 0;
-      transform: scale(0.95);
+      transform: scale(0.8);
       pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* 淡入效果（用于新显示的卡片） - 从小放大并淡入 */
+    [data-anime-status].anime-fade-in {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    
+    [data-anime-status].anime-fade-in-active {
+      opacity: 1;
+      transform: scale(1);
     }
   </style>
 
@@ -414,32 +479,143 @@ const stats = {
       });
       filterEventListeners = [];
       
-      // 过滤功能
+      // 过滤功能 - 使用 FLIP 技术实现洗牌动画
       filterTags.forEach(tag => {
         const clickHandler = function() {
+          // 防止重复点击
+          if (this.classList.contains('active')) return;
+          
           // 移除所有active类
           filterTags.forEach(t => t.classList.remove('active'));
           // 添加active类到当前点击的标签
           this.classList.add('active');
           
           const status = this.getAttribute('data-status');
+          const animeItems = Array.from(document.querySelectorAll('[data-anime-status]'));
           
-          // 获取所有动漫项
-          const animeItems = document.querySelectorAll('[data-anime-status]');
-          
-          // 过滤动漫项
+          // FLIP 动画技术
+          // First: 记录所有卡片的初始位置
+          const firstPositions = new Map();
           animeItems.forEach(item => {
-            if (status === 'all') {
-              item.classList.remove('hidden');
-            } else {
-              const itemStatus = item.getAttribute('data-anime-status');
-              if (itemStatus === status) {
-                item.classList.remove('hidden');
+            const rect = item.getBoundingClientRect();
+            firstPositions.set(item, {
+              left: rect.left,
+              top: rect.top,
+              width: rect.width,
+              height: rect.height
+            });
+          });
+          
+          // 分类卡片
+          const itemsToHide = [];
+          const itemsToShow = [];
+          const itemsToKeep = [];
+          
+          animeItems.forEach(item => {
+            const itemStatus = item.getAttribute('data-anime-status');
+            const shouldShow = status === 'all' || itemStatus === status;
+            const isCurrentlyVisible = !item.classList.contains('anime-hidden');
+            
+            if (shouldShow) {
+              if (isCurrentlyVisible) {
+                itemsToKeep.push(item);
               } else {
-                item.classList.add('hidden');
+                itemsToShow.push(item);
+              }
+            } else {
+              if (isCurrentlyVisible) {
+                itemsToHide.push(item);
               }
             }
           });
+          
+          // 为要隐藏的卡片添加淡出效果
+          itemsToHide.forEach(item => {
+            item.classList.add('anime-fade-out');
+          });
+          
+          // 等待淡出完成
+          setTimeout(() => {
+            // Last: 完全隐藏要移除的卡片
+            itemsToHide.forEach(item => {
+              item.classList.add('anime-hidden');
+              item.classList.remove('anime-fade-out');
+            });
+            
+            // 显示新卡片但先设为透明和缩小（在它们的最终位置）
+            itemsToShow.forEach(item => {
+              item.classList.remove('anime-hidden');
+              item.classList.add('anime-fade-in');
+              item.style.opacity = '0';
+              item.style.transform = 'scale(0.8)';
+              item.style.transition = 'none';
+            });
+            
+            // 等待布局更新
+            requestAnimationFrame(() => {
+              // 记录所有卡片的最终位置（包括新显示的卡片）
+              const lastPositions = new Map();
+              [...itemsToKeep, ...itemsToShow].forEach(item => {
+                const rect = item.getBoundingClientRect();
+                lastPositions.set(item, {
+                  left: rect.left,
+                  top: rect.top
+                });
+              });
+              
+              // Invert: 只对保持显示的卡片应用反向变换
+              itemsToKeep.forEach(item => {
+                const first = firstPositions.get(item);
+                const last = lastPositions.get(item);
+                
+                if (first && last) {
+                  const deltaX = first.left - last.left;
+                  const deltaY = first.top - last.top;
+                  
+                  // 立即应用反向变换（不使用过渡）
+                  item.style.transition = 'none';
+                  item.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+                }
+              });
+              
+              // Play: 触发动画
+              requestAnimationFrame(() => {
+                const allItems = [...itemsToKeep, ...itemsToShow];
+                
+                allItems.forEach((item, index) => {
+                  // 错开动画开始时间，创建波浪效果
+                  setTimeout(() => {
+                    item.classList.add('anime-animating');
+                    
+                    // 保持显示的卡片：移动到最终位置
+                    if (itemsToKeep.includes(item)) {
+                      item.style.transition = '';
+                      item.style.transform = '';
+                    }
+                    
+                    // 新显示的卡片：在当前位置淡入并放大
+                    if (itemsToShow.includes(item)) {
+                      item.classList.remove('anime-fade-in');
+                      item.classList.add('anime-fade-in-active');
+                      item.style.transition = '';
+                      item.style.opacity = '1';
+                      item.style.transform = 'scale(1)';
+                    }
+                  }, index * 20); // 每个卡片延迟20ms
+                });
+                
+                // 动画完成后清理
+                setTimeout(() => {
+                  allItems.forEach(item => {
+                    item.classList.remove('anime-animating', 'anime-fade-in-active');
+                    item.style.transition = '';
+                    item.style.transform = '';
+                    item.style.opacity = '';
+                  });
+                }, 500 + allItems.length * 20); // 等待所有动画完成
+              });
+            });
+          }, 300); // 等待淡出动画完成
         };
         
         tag.addEventListener('click', clickHandler);

@@ -44,6 +44,7 @@ export const zh_CN: Translation = {
 	[Key.license]: "许可协议",
 	[Key.anime]: "追番",
 	[Key.diary]: "日记",
+	[Key.gallery]: "相册",
 
 	// 番剧页面
 	[Key.animeTitle]: "我的追番记录",
@@ -63,7 +64,6 @@ export const zh_CN: Translation = {
 	// 短文页面
 	[Key.diarySubtitle]: "随时随地，分享生活",
 	[Key.diaryCount]: "条短文",
-	[Key.diaryImage]: "图片",
 	[Key.diaryReply]: "回复",
 	[Key.diaryTips]: "只展示最近30条日记",
 	[Key.diaryMinutesAgo]: "分钟前",
@@ -87,6 +87,10 @@ export const zh_CN: Translation = {
 	[Key.albumsBackToList]: "返回相册",
 	[Key.albumsPhotoCount]: "张照片",
 	[Key.albumsPhotosCount]: "张照片",
+
+	// 设备页面
+	[Key.devices]: "我的设备",
+	[Key.devicesSubtitle]: "这里展示了我日常使用的各类设备",
 
 	// 项目展示页面
 	[Key.projects]: "项目展示",
@@ -228,4 +232,41 @@ export const zh_CN: Translation = {
 	[Key.atomHowToUse]: "推荐使用 Feedly、Inoreader 或其他 Atom 阅读器来订阅本站。",
 	[Key.atomCopied]: "Atom 链接已复制到剪贴板！",
 	[Key.atomCopyFailed]: "复制失败，请手动复制链接",
+
+	// 壁纸模式
+	[Key.wallpaperBanner]: "横幅模式",
+	[Key.wallpaperFullscreen]: "全屏模式",
+	[Key.wallpaperNone]: "隐藏壁纸",
+
+	// 站点统计
+	[Key.siteStats]: "站点统计",
+	[Key.siteStatsPostCount]: "文章",
+	[Key.siteStatsCategoryCount]: "分类",
+	[Key.siteStatsTagCount]: "标签",
+	[Key.siteStatsTotalWords]: "总字数",
+	[Key.siteStatsRunningDays]: "运行时长",
+	[Key.siteStatsLastUpdate]: "最后活动",
+	[Key.siteStatsDaysAgo]: "{days} 天前",
+	[Key.siteStatsDays]: "{days} 天",
+
+	// 日历组件
+	[Key.calendarSunday]: "日",
+	[Key.calendarMonday]: "一",
+	[Key.calendarTuesday]: "二",
+	[Key.calendarWednesday]: "三",
+	[Key.calendarThursday]: "四",
+	[Key.calendarFriday]: "五",
+	[Key.calendarSaturday]: "六",
+	[Key.calendarJanuary]: "1月",
+	[Key.calendarFebruary]: "2月",
+	[Key.calendarMarch]: "3月",
+	[Key.calendarApril]: "4月",
+	[Key.calendarMay]: "5月",
+	[Key.calendarJune]: "6月",
+	[Key.calendarJuly]: "7月",
+	[Key.calendarAugust]: "8月",
+	[Key.calendarSeptember]: "9月",
+	[Key.calendarOctober]: "10月",
+	[Key.calendarNovember]: "11月",
+	[Key.calendarDecember]: "12月",
 };

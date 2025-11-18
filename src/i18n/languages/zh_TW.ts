@@ -44,6 +44,7 @@ export const zh_TW: Translation = {
 	[Key.license]: "許可協議",
 	[Key.anime]: "追番",
 	[Key.diary]: "日記",
+	[Key.gallery]: "相冊",
 
 	// 番劇頁面
 	[Key.animeTitle]: "我的追番記錄",
@@ -63,7 +64,6 @@ export const zh_TW: Translation = {
 	// 短文頁面
 	[Key.diarySubtitle]: "隨時隨地，分享生活",
 	[Key.diaryCount]: "條短文",
-	[Key.diaryImage]: "圖片",
 	[Key.diaryReply]: "回復",
 	[Key.diaryTips]: "只展示最近30條日記",
 	[Key.diaryMinutesAgo]: "分鐘前",
@@ -150,7 +150,8 @@ export const zh_TW: Translation = {
 	[Key.atomBenefit2]: "在一個地方管理多個網站的訂閱",
 	[Key.atomBenefit3]: "避免錯過重要更新和文章",
 	[Key.atomBenefit4]: "享受無廣告的純淨閱讀體驗",
-	[Key.atomHowToUse]: "推薦使用 Feedly、Inoreader 或其他 Atom 閱讀器來訂閱本站。",
+	[Key.atomHowToUse]:
+		"推薦使用 Feedly、Inoreader 或其他 Atom 閱讀器來訂閱本站。",
 	[Key.atomCopied]: "Atom 鏈接已複製到剪貼板！",
 	[Key.atomCopyFailed]: "複製失敗，請手動複製鏈接",
 
@@ -202,11 +203,6 @@ export const zh_TW: Translation = {
 	[Key.timelineStartDate]: "開始日期",
 	[Key.timelineDuration]: "持續時間",
 
-	// 项目展示页面
-	[Key.projectsVisit]: "前往項目",
-	[Key.projectsGitHub]: "GitHub",
-	[Key.projectsGitee]: "Gitee",
-	
 	// 其他
 	[Key.noData]: "暫無數據",
 
@@ -238,4 +234,41 @@ export const zh_TW: Translation = {
 	[Key.hour]: "小時",
 	[Key.minute]: "分",
 	[Key.second]: "秒",
+
+	// 壁紙模式
+	[Key.wallpaperBanner]: "橫幅模式",
+	[Key.wallpaperFullscreen]: "全屏模式",
+	[Key.wallpaperNone]: "隱藏壁紙",
+
+	// 站點統計
+	[Key.siteStats]: "站點統計",
+	[Key.siteStatsPostCount]: "文章數",
+	[Key.siteStatsCategoryCount]: "分類數",
+	[Key.siteStatsTagCount]: "標籤數",
+	[Key.siteStatsTotalWords]: "總字數",
+	[Key.siteStatsRunningDays]: "運行天數",
+	[Key.siteStatsLastUpdate]: "最後活動",
+	[Key.siteStatsDaysAgo]: "{days} 天前",
+	[Key.siteStatsDays]: "{days} 天",
+
+	// 日曆組件
+	[Key.calendarSunday]: "日",
+	[Key.calendarMonday]: "一",
+	[Key.calendarTuesday]: "二",
+	[Key.calendarWednesday]: "三",
+	[Key.calendarThursday]: "四",
+	[Key.calendarFriday]: "五",
+	[Key.calendarSaturday]: "六",
+	[Key.calendarJanuary]: "1月",
+	[Key.calendarFebruary]: "2月",
+	[Key.calendarMarch]: "3月",
+	[Key.calendarApril]: "4月",
+	[Key.calendarMay]: "5月",
+	[Key.calendarJune]: "6月",
+	[Key.calendarJuly]: "7月",
+	[Key.calendarAugust]: "8月",
+	[Key.calendarSeptember]: "9月",
+	[Key.calendarOctober]: "10月",
+	[Key.calendarNovember]: "11月",
+	[Key.calendarDecember]: "12月",
 };

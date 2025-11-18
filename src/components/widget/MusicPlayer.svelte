@@ -59,7 +59,16 @@ let currentSong = {
 	duration: 0,
 };
 
-let playlist = [];
+type Song = {
+    id: number;
+    title: string;
+    artist: string;
+    cover: string;
+    url: string;
+    duration: number;
+};
+
+let playlist: Song[] = [];
 let currentIndex = 0;
 let audio: HTMLAudioElement;
 let progressBar: HTMLElement;

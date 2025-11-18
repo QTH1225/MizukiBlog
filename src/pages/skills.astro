@@ -11,8 +11,7 @@ import {
 	getTotalExperience,
 	skillsData,
 } from "../data/skills";
-import I18nKey from "../i18n/i18nKey";
-import { i18n } from "../i18n/translation";
+
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 
 // 检查技能页面是否启用
@@ -43,15 +42,15 @@ const skillsByCategory = categories.reduce(
 const getLevelColor = (level: string) => {
 	switch (level) {
 		case "expert":
-			return "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400";
+			return "bg-red-600/20 text-red-700 dark:bg-red-900/30 dark:text-red-400";
 		case "advanced":
-			return "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400";
+			return "bg-orange-600/20 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400";
 		case "intermediate":
-			return "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400";
+			return "bg-yellow-600/20 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400";
 		case "beginner":
-			return "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400";
+			return "bg-green-600/20 text-green-700 dark:bg-green-900/30 dark:text-green-400";
 		default:
-			return "bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400";
+			return "bg-gray-600/20 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400";
 	}
 };
 
@@ -71,28 +70,28 @@ const getLevelWidth = (level: string) => {
 	}
 };
 
-// 获取分类的翻译文本
+// 获取分类的显示文本
 const getCategoryText = (category: string) => {
 	switch (category) {
 		case "frontend":
-			return i18n(I18nKey.skillsFrontend);
+			return "前端开发";
 		case "backend":
-			return i18n(I18nKey.skillsBackend);
+			return "后端开发";
 		case "database":
-			return i18n(I18nKey.skillsDatabase);
+			return "数据库";
 		case "tools":
-			return i18n(I18nKey.skillsTools);
+			return "开发工具";
 		case "other":
-			return i18n(I18nKey.skillsOther);
+			return "其他技能";
 		case UNCATEGORIZED:
-			return i18n(I18nKey.uncategorized);
+			return "未分类";
 		default:
 			return category;
 	}
 };
 
-const title = i18n(I18nKey.skills);
-const subtitle = i18n(I18nKey.skillsSubtitle);
+const title = "技能"; 
+const subtitle = "我的专业技能展示"; 
 
 // 收集所有技能图标用于预加载
 const allIcons = skillsData.map((skill) => skill.icon).filter(Boolean);
@@ -111,10 +110,10 @@ let animated = false;
         <h1 class="text-4xl font-bold text-black/90 dark:text-white/90 mb-2 relative
                   before:w-1 before:h-8 before:rounded-md before:bg-[var(--primary)]
                   before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-4">
-          {i18n(I18nKey.skills)}
+          技能
         </h1>
         <p class="text-lg text-black/60 dark:text-white/60">
-          {i18n(I18nKey.skillsSubtitle)}
+          我的专业技能展示
         </p>
       </div>
 
@@ -127,11 +126,11 @@ let animated = false;
           <h2 class="text-2xl font-bold text-black/90 dark:text-white/90 mb-4 relative
                     before:w-1 before:h-6 before:rounded-md before:bg-[var(--primary)]
                     before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-4">
-            {i18n(I18nKey.skillsAdvancedTitle)}
+            专业技能
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             {advancedSkills.map((skill) => (
-              <div class="bg-white dark:bg-transparent rounded-lg border border-black/10 dark:border-white/10 p-6 hover:shadow-lg transition-shadow duration-300">
+              <div class="bg-transparent rounded-lg border border-black/10 dark:border-white/10 p-6 hover:shadow-lg transition-shadow duration-300">
                 <div class="flex items-start gap-4">
                   {skill.icon && (
                     <div class="w-12 h-12 rounded-lg flex items-center justify-center" style={`background-color: ${skill.color || 'rgb(99 102 241)'}20`}>
@@ -150,10 +149,10 @@ let animated = false;
                         {skill.name}
                       </h3>
                       <span class={`px-2 py-1 text-xs rounded-full ${getLevelColor(skill.level)}`}>
-                        {i18n(skill.level === 'expert' ? I18nKey.skillsExpert :
-                              skill.level === 'advanced' ? I18nKey.skillsAdvanced :
-                              skill.level === 'intermediate' ? I18nKey.skillsIntermediate :
-                              I18nKey.skillsBeginner)}
+                        {skill.level === 'expert' ? '专家' :
+                         skill.level === 'advanced' ? '高级' :
+                         skill.level === 'intermediate' ? '中级' :
+                         '初级'}
                       </span>
                     </div>
                     <p class="text-black/60 dark:text-white/60 mb-3 text-sm">
@@ -161,23 +160,22 @@ let animated = false;
                     </p>
                     <div class="mb-3">
                       <div class="flex justify-between text-sm mb-1">
-                        <span class="text-black/60 dark:text-white/60">{i18n(I18nKey.skillExperience)}</span>
+                        <span class="text-black/60 dark:text-white/60">经验</span>
                         <span class="text-black/80 dark:text-white/80">
-                          {skill.experience.years}{i18n(I18nKey.skillYears)}{skill.experience.months > 0 ? ` ${skill.experience.months}${i18n(I18nKey.skillMonths)}` : ''}
+                          {skill.experience.years} 年{skill.experience.months > 0 ? ` ${skill.experience.months} 个月` : ''}
                         </span>
                       </div>
                       <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                         <div 
-                            class="h-2 rounded-full skill-progress-bar-animate"
-                            style={`width: 0%; background-color: ${skill.color || 'rgb(99 102 241)'};`}
-                            data-final-width={getLevelWidth(skill.level)}
+                            class="h-2 rounded-full transition-all duration-300"
+                            style={`width: ${getLevelWidth(skill.level)}; background-color: ${skill.color || 'rgb(99 102 241)'};`}
                           ></div>
                       </div>
                     </div>
                     {skill.certifications && skill.certifications.length > 0 && (
                       <div class="flex flex-wrap gap-1">
                         {skill.certifications.map((cert) => (
-                          <span class="px-2 py-1 text-xs bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 rounded">
+                          <span class="px-2 py-1 text-xs bg-green-600/20 text-green-700 dark:bg-green-900/30 dark:text-green-400 rounded">
                             {cert}
                           </span>
                         ))}
@@ -209,7 +207,7 @@ let animated = false;
               </h2>
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {categorySkills.map((skill) => (
-                  <div class="bg-white dark:bg-transparent rounded-lg border border-black/10 dark:border-white/10 p-4 hover:shadow-lg transition-shadow duration-300">
+                  <div class="bg-transparent rounded-lg border border-black/10 dark:border-white/10 p-4 hover:shadow-lg transition-shadow duration-300">
                     <div class="flex items-start gap-3">
                       {skill.icon && (
                         <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style={`background-color: ${skill.color || 'rgb(99 102 241)'}20`}>
@@ -228,30 +226,24 @@ let animated = false;
                             {skill.name}
                           </h3>
                           <span class={`px-2 py-1 text-xs rounded-full shrink-0 ml-2 ${getLevelColor(skill.level)}`}>
-                            {i18n(skill.level === 'expert' ? I18nKey.skillsExpert :
-                                  skill.level === 'advanced' ? I18nKey.skillsAdvanced :
-                                  skill.level === 'intermediate' ? I18nKey.skillsIntermediate :
-                                  I18nKey.skillsBeginner)}
+                            {skill.level === 'expert' ? '专家' :
+                             skill.level === 'advanced' ? '高级' :
+                             skill.level === 'intermediate' ? '中级' :
+                             '初级'}
                           </span>
                         </div>
                         <p class="text-black/60 dark:text-white/60 mb-2 text-sm line-clamp-2">
                           {skill.description}
                         </p>
-                        <div class="flex justify-between text-xs text-black/60 dark:text-white/60">
+                        <div class="text-xs text-black/60 dark:text-white/60">
                           <span>
-                            {skill.experience.years}{i18n(I18nKey.skillYears)}{skill.experience.months > 0 ? ` ${skill.experience.months}${i18n(I18nKey.skillMonths)}` : ''}
+                            {skill.experience.years} 年{skill.experience.months > 0 ? ` ${skill.experience.months} 个月` : ''}
                           </span>
-                          {skill.projects && skill.projects.length > 0 && (
-                            <span>
-                              {skill.projects.length} {skill.projects.length > 1 ? i18n(I18nKey.projects) : i18n(I18nKey.project)}
-                            </span>
-                          )}
                         </div>
                         <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-2">
                           <div 
-                              class="h-2 rounded-full skill-progress-bar-animate"
-                              style={`width: 0%; background-color: ${skill.color || 'rgb(99 102 241)'};`}
-                              data-final-width={getLevelWidth(skill.level)}
+                              class="h-2 rounded-full transition-all duration-300"
+                              style={`width: ${getLevelWidth(skill.level)}; background-color: ${skill.color || 'rgb(99 102 241)'};`}
                             ></div>
                         </div>
                       </div>
@@ -266,27 +258,5 @@ let animated = false;
     </div>
   </div>
   
-  <!-- 添加CSS样式 -->
-  <style>
-    .skill-progress-bar-animate {
-      animation: skillProgressBarLoad 1s ease-out forwards;
-    }
-    
-    .category-progress-bar-animate {
-      animation: skillProgressBarLoad 1s ease-out forwards;
-    }
-    
-    @keyframes skillProgressBarLoad {
-      from {
-        width: 0%;
-      }
-      to {
-        width: var(--final-width);
-      }
-    }
-  </style>
 
-  <!-- 添加脚本触发动画 -->
-  <!-- 注意：此脚本已被移至全局处理脚本 /public/js/skills-progress-handler.js 中 -->
-  <!-- 在 Layout.astro 中引入了该脚本以确保在各种导航场景下都能正确触发动画 -->
 </MainGridLayout>
