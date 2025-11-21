@@ -319,31 +319,32 @@ export const profileConfig: ProfileConfig = {
 	bio: "Wandering in the universe, I'm searching for my TARDIS",
 	links: [
 		{
-			name: "Bilibli",
-			icon: "fa6-brands:bilibili",
-			url: "https://space.bilibili.com/164624905",
-		},
-		{
 			name: "WeChat",
 			icon: "fa6-brands:weixin",
 			url: "/assets/images/wechat-qrcode.webp",
+		},
+		{
+			name: "ORCID",
+			icon: "fa6-brands:orcid",
+			url: "https://orcid.org/0009-0007-5166-1430",
+		},
+		{
+			name: "Research Gate",
+			icon: "fa6-brands:researchgate",
+			url: "https://www.researchgate.net/profile/Tianhao-Qin?ev=hdr_xprf",
+		},
+		{
+			name: "LinkedIn",
+			icon: "fa6-brands:linkedin",
+			url: "https://www.linkedin.com/in/tianhao-qin-07158833a/",
 		},
 		{
 			name: "GitHub",
 			icon: "fa6-brands:github",
 			url: "https://github.com/QTH1225",
 		},
-		{
-			name: "Codeberg",
-			icon: "simple-icons:codeberg",
-			url: "https://codeberg.org",
-		},
-		{
-			name: "Discord",
-			icon: "fa6-brands:discord",
-			url: "https://discord.gg/MqW6TcQtVM",
-		},
-	],
+
+		]
 };
 
 export const licenseConfig: LicenseConfig = {

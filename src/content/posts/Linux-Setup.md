@@ -56,10 +56,11 @@ draft: true
 由于ubuntu 24.04自带的是ibus输入法，所以可以将rime输入法安装在`rime`文件夹下，在下载后，我们会在文件夹中发现这四个文件夹
 ```
 rime/
-|_
-|_
-|_
-|_
+|_build/
+
+|_luna_pinyin.userdb
+|_user.yaml
+|_installation.yaml
 ```
 一般的大厂输入法候选词都是横向，我们的rime万象刚开始配置的时候是纵向，可能会感到不习惯。可以在`/home/tianhao/.config/ibus/rime/build/ibus_rime.yaml`中更改成如下配置后重新部署。
 ```
