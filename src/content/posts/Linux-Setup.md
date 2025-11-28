@@ -104,3 +104,5 @@ sudo apt install libfuse2t64
 [33527:1105/213855.071123:FATAL:setuid_sandbox_host.cc(163)] The SUID sandbox helper binary was found, but is not configured correctly. Rather than run without sandboxing I'm aborting now. You need to make sure that /tmp/.mount_listenUrdcN5/chrome-sandbox is owned by root and has mode 4755.
 ```
 查阅后可以通过`./listen1_2.33.0_linux_x86_64.AppImage --no-sandbox`解除沙箱限制，然后可以通过双击运行应用。但是比较遗憾，#1372中提到v2.33.0目前没有办法进行网易云登录。所以博主尝试YesPlayMusic项目，但是出现了#2270中的错误且有封号的风险。接下来博主又找到了AlgerMusic项目，发现其可以完美适配网易云登录。
+
+### fzf安装
