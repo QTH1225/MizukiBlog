@@ -1,0 +1,10 @@
+{
+	"title": "CUMT Scenery",
+	"hidden": false,
+	"description": "The scenery of China University of Mining and Technology changes every year",
+	"date": "2025-11-15",
+	"location": "XuZhou",
+	"tags": ["Journey", "University"],
+	"layout": "masonry",
+	"columns": 3
+}
