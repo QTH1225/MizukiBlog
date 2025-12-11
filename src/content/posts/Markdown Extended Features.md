@@ -6,7 +6,6 @@ description: Read more about Markdown features in Mizuki
 image: ""
 tags:
   - Markdown
-  - mizuki
 category: CS
 draft: false
 ---
