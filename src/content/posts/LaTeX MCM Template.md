@@ -1,7 +1,7 @@
 ---
 title: 基于easyMCM的美赛LaTeX模板
 author: Qin Tianhao
-published: 2025-10-07
+published: 2025-12-12
 tags:
   - LaTeX
 category: CS
