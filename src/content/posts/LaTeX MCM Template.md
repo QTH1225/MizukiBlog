@@ -6,6 +6,7 @@ tags:
   - LaTeX
 category: CS
 draft: false
+description: 基于EasyMCM全面且专业的美赛模板，支持多种排版样式
 ---
 
 <div align="center">
