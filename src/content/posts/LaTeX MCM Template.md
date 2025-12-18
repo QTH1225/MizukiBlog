@@ -48,7 +48,7 @@ description: 基于EasyMCM全面且专业的美赛模板，支持多种排版样
 
 ```
 LaTeX-in-ICM-MCM/
-├── temple/                    # 主模板目录（推荐使用）
+├── template/                    # 主模板目录（推荐使用）
 │   ├── main.tex              # 主文档入口
 │   ├── part_1_pre.tex        # 问题分析部分（引言、假设、符号说明）
 │   ├── part_2_model.tex      # 模型建立部分（模型构建、求解）
@@ -327,4 +327,12 @@ def calculate_sum(matrix):
 
 如果您觉得本项目对您有帮助，欢迎给我一个star⭐，谢谢！
 
-[![Star History Chart](https://api.star-history.com/svg?repos=QTH1225/LaTeX-in-ICM-MCM&type=timeline&legend=bottom-right)](https://www.star-history.com/#QTH1225/LaTeX-in-ICM-MCM&type=timeline&legend=bottom-right)
+<picture>
+
+  <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=QTH1225/LaTeX-in-ICM-MCM&type=Date&theme=dark" />
+
+  <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=QTH1225/LaTeX-in-ICM-MCM&type=Date" />
+
+  <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=QTH1225/LaTeX-in-ICM-MCM&type=Date" />
+
+</picture>

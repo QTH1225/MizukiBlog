@@ -37,6 +37,9 @@ yarn.lock
 .idea
 *.iml
 
+# crossnote configuration
+.crossnote/
+
 cache/
 fuwari/
 src/data/myself.ts
