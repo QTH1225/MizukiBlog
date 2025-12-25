@@ -145,6 +145,54 @@
         margin: 1em 0;
     }
     
+    /* 手写体样式 - 用于引用段落 */
+    .handwriting-font {
+        font-family: 'Brush Script MT', 'Segoe Script', 'Lucida Handwriting', cursive, serif;
+        font-size: 1.2em;
+        font-style: italic;
+        line-height: 1.3;
+        color: #666;
+        text-align: center;
+        margin: 1rem 0 0.5rem 0;
+        padding: 0.8rem;
+        border-left: 3px solid #e0e0e0;
+    }
+    
+    .handwriting-font .left-align {
+        text-align: left;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+    
+    .handwriting-font .right-align {
+        text-align: right;
+        display: block;
+    }
+    
+    .handwriting-font br {
+        display: block;
+        content: "";
+        margin-top: 0.5rem;
+    }
+    
+    .handwriting-font br + * {
+        text-align: right;
+        display: block;
+        margin-top: 0.5rem;
+    }
+    
+    .handwriting-font br:first-child + * {
+        text-align: left;
+        display: block;
+    }
+    
+    /* 深色主题适配 */
+    :global(.dark) .handwriting-font {
+        color: #d1d5db;
+        border-left-color: #4b5563;
+        background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+    }
+    
 }
 
 /* 修复代码块内列表项标记颜色问题 */
