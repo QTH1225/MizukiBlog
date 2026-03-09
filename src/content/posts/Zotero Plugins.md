@@ -6,7 +6,7 @@ published: 2025-11-21
 tags:
   - Zotero
 category: Tools
-draft: true
+draft: false
 ---
 
 # Zotero插件详细指南
