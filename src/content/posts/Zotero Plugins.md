@@ -2,7 +2,7 @@
 title: Zotero插件详细指南
 author: Qin Tianhao
 description: 详细介绍Zotero插件的功能、安装方法
-published: 2025-11-21
+published: 2026-03-09
 tags:
   - Zotero
 category: Tools
