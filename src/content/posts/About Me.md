@@ -28,7 +28,7 @@ If you are interested in any aspect of me, I am always open to discussions and c
 
 My current research focuses on durability of reinforced concrete in coastal area and reinforcement measures. I am interested in the application of  **New Building Materials**(such as FRP, TRC) and **Intelligent Algorithm** (such as machine learning and neural networks) in concrete structures. In short, the new green building materials have a positive impact on everyone's life. I wish to devote my talent to this meaningful cause and bring well-being to society.
 ## Scholarships
-
+- Nov 2025：**First-class Scholarship for Postgraduate Students** (￥8000)<br>
 - Nov 2024：**TongZhu Scholarship** (￥2000)<br>
 - Nov 2024：**Xiaomi  First-class Scholarship** (￥5000)<br>
   Only **2** senior was selected in School of Mechanics & Civil Engineering
